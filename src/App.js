@@ -1,3 +1,4 @@
+import './variables.css'
 import Panier from './components/Panier/Panier';
 
 function App() {

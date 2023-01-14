@@ -1,0 +1,79 @@
+p {
+    font-size: 1.5rem;
+}
+#container {
+    margin: 20px;
+}
+h1 {
+    font-family: Montserrat, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 3rem;
+}
+
+
+.panier_produit {
+    align-items: center;
+    justify-content: center;
+}
+.panier_produit div {
+    margin: 0 10px;
+}
+.panier_produit, .panier_produitQuantite {
+    display: flex;
+}
+.panier_produitQuantite {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+.panier_produitQuantite p {
+    margin: 0 10px;
+}
+.panier_produitQuantite div {
+    border: solid 0.9px;
+    border-radius: 20px;
+    font-size: 13px;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#panier_montantTotal, #panier_paiement {
+    margin: 15px 0;
+}
+#panier_montantTotal div {
+    display: flex;
+    margin: 8px 0;
+    justify-content: space-around;
+}
+
+
+#panier_paiement {
+    display: flex;
+    justify-content: center;
+}
+.panier_moyenPaiement {
+    display: flex;
+    align-items: center;
+}
+.panier_paiement input {
+    margin-right: 10px;
+}
+
+
+.btn_commander {
+    background-color: var(--orange);
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    width: 100%;
+    color: white;
+}
+img {
+    width: 10%;
+    margin: 0 10px;
+}
