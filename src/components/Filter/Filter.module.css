@@ -1,0 +1,28 @@
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 25px 30px;
+    transition: background-color 0.5s;
+    animation: showFilter 1s linear forwards;
+    cursor: pointer;
+}
+
+.filter:hover, .filter--active {
+    background-color: rgb(255, 255, 255);
+}
+
+
+@keyframes showFilter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
