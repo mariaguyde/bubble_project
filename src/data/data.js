@@ -12,6 +12,7 @@ export const data = {
             image: require("../assets/img/coco-strawberry-latte.png"),
             nom: "Bubble Tea Mango Tropical",
             description: "Bestseller",
+            disponibilité: true,
             allergènes: [""],
             options: {
               multiple: {
@@ -39,6 +40,7 @@ export const data = {
             image: require("../assets/img/coco-strawberry-latte.png"),
             nom: "Brown Sugar",
             description: "Chaud froid, c'est délicieux!",
+            disponibilité: true,
             allergènes: [""],
             options: {
               multiple: {
@@ -66,6 +68,7 @@ export const data = {
             image: require("../assets/img/coco-strawberry-latte.png"),
             nom: "Pamplemousse doux",
             description: "Une vraie douceur!",
+            disponibilité: true,
             allergènes: [""],
             options: {
               multiple: {
@@ -101,6 +104,7 @@ export const data = {
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Banh Mi Poulet",
             description: "Qui est très bon",
+            disponibilité: true,
             prix: "3€",
             allergènes: [""],
             régime: ["Halal", "Vegan"],
@@ -127,6 +131,7 @@ export const data = {
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Wrap Poulet",
             description: "Basic!",
+            disponibilité: true,
             prix: "3€",
             allergènes: [""],
             régime: ["Halal", "Vegan"],
@@ -148,6 +153,7 @@ export const data = {
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Wrap Boeuf",
             description: "Le préféré du staff!",
+            disponibilité: true,
             prix: "3€",
             allergènes: [""],
             régime: ["Halal", "Porc"],
@@ -169,6 +175,7 @@ export const data = {
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Wrap Végé",
             description: "Basic!",
+            disponibilité: false,
             prix: "3€",
             allergènes: [""],
             régime: ["Halal", "Vegan"],
@@ -185,41 +192,6 @@ export const data = {
                 "sauce piquante": ["Oui", "Non"],
               }
             },
-          },
-        ],
-      },
-      snacks: {
-        filtres: ["Salé", "Sucré"],
-        produits: [
-          {
-            id: uuidv4(),
-            type: "Salé",
-            image: require("../assets/img/banhmi-viande.png"),
-            nom: "Doritos Cheese",
-            description: "Sooo Cheesy!",
-            prix: "1€",
-            allergènes: [""],
-            régime: ["Halal", "Vegan"],
-          },
-          {
-            id: uuidv4(),
-            type: "Sucré",
-            image: require("../assets/img/banhmi-viande.png"),
-            nom: "Mikado",
-            description: "La sucrerie préférée du staff!",
-            prix: "1€",
-            allergènes: [""],
-            régime: ["Halal", "Porc"],
-          },
-          {
-            id: uuidv4(),
-            type: "Sucré",
-            image: require("../assets/img/banhmi-viande.png"),
-            nom: "Oreo",
-            description: "Basic!",
-            prix: "1€",
-            allergènes: [""],
-            régime: ["Halal", "Vegan"],
           },
         ],
       },
