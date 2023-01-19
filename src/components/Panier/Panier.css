@@ -2,12 +2,16 @@ p {
     font-size: 1.5rem;
 }
 #container {
-    margin: 20px;
+    margin: 50px;
 }
 h1 {
     font-family: Montserrat, Helvetica, sans-serif;
     text-align: center;
     font-size: 3rem;
+}
+.panier_details {
+    width: 80%;
+    margin: 55px auto;
 }
 
 
@@ -42,8 +46,8 @@ h1 {
 }
 
 
-#panier_montantTotal, #panier_paiement {
-    margin: 15px 0;
+#panier_montantTotal, #panier_paiement, #panier_produitslist {
+    margin: 45px 0;
 }
 #panier_montantTotal div {
     display: flex;
@@ -53,10 +57,19 @@ h1 {
 
 
 #panier_paiement {
+    /*
     display: flex;
     justify-content: center;
+    /**/
+    display: flex;
+    text-align: center;
 }
 .panier_moyenPaiement {
+    /*
+    display: flex;
+    align-items: center;
+    /**/
+    width: 50%;
     display: flex;
     align-items: center;
 }
