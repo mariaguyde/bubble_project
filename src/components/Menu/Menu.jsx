@@ -10,6 +10,9 @@ import { useState, useEffect } from "react"
 export default function Menu() {
     const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", categoryVariety: "", products: Object.keys(data.catégories["boissons"]).map(categoryVariety => data.catégories["boissons"][categoryVariety]["produits"]).flat() });
     const [selectedFilter, setSelectedFilter] = useState("");
+    const [cart, setCart] = useState([]);
+
+    console.log("ARTICLES DU PANIER", cart);
 
     useEffect(() => {
         if(selectedFilter) setSelectedFilter("");
@@ -34,7 +37,7 @@ export default function Menu() {
                     </div>
                 )}
                 <div className={style["product-cards-container"]}>
-                    {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} />)}
+                    {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} cart={cart} addToCart={setCart} selectedCategory={selectedCategory} />)}
                 </div>
                 <Cart />
             </div>

@@ -1,122 +1,190 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const data = {
   catégories: {
     boissons: {
       "bubble tea": {
-        tailles: [
-          { taille: "Petit", prix: "5€" },
-          { taille: "Moyen", prix: "6€" },
-          { taille: "Grand", prix: "7€" },
-        ],
-        température: ["Chaud", "Froid"],
-        "taux de sucre": ["Faible", "Moyen", "Elevé"],
         filtres: ["Fruits", "Lait"],
         produits: [
           {
-            id: 1,
+            id: uuidv4(),
             type: "Fruits",
             image: require("../assets/img/coco-strawberry-latte.png"),
-            nom: "Bubble Tea Fraise",
-            description: "C'est délicieux!",
-            thé: ["Vert", "Noir"],
-            bulles: ["Tapioca", "Litchi", "Aucune"],
-            allergènes: ["Bla bla bla"],
-            extras: [
-              {
-                nom: "",
-                prix: "",
+            nom: "Bubble Tea Mango Tropical",
+            description: "Bestseller",
+            allergènes: [""],
+            options: {
+              multiple: {
+                extras: [
+                  ["Tapioca", "2€"],
+                  ["Litchi", "2€"],
+                ],
               },
-            ],
+              unique: {
+                bulles: ["Tapioca", "Litchi", "Aucune"],
+                "taux de sucre": ["Faible", "Moyen", "Elevé"],
+                thé: ["Vert", "Noir"],
+                température: ["Chaud", "Froid"],
+                taille: [
+                   ["Petit", "5€"],
+                   ["Moyen", "6€"],
+                   ["Grand", "7€"],
+                ],
+              }
+            },
           },
           {
-            id: 2,
-            type: "Fruits",
-            image: require("../assets/img/coco-strawberry-latte.png"),
-            nom: "Bubble Tea Mangue",
-            description: "Si doux!",
-            thé: ["Vert", "Noir"],
-            bulles: ["Tapioca", "Litchi", "Aucune"],
-            allergènes: ["Bla bla bla"],
-            extras: [
-              {
-                nom: "",
-                prix: "",
-              },
-            ],
-          },
-          {
-            id: 3,
+            id: uuidv4(),
             type: "Lait",
-            "type de lait": ["Amande", "Avoine", "Soja"],
             image: require("../assets/img/coco-strawberry-latte.png"),
-            nom: "Bubble Tea Brown Sugar",
-            description: "Le préféré du staff!",
-            thé: ["Vert", "Noir"],
-            bulles: ["Tapioca", "Litchi", "Aucune"],
-            allergènes: ["Bla bla bla"],
-            extras: [
-              {
-                nom: "",
-                prix: "",
+            nom: "Brown Sugar",
+            description: "Chaud froid, c'est délicieux!",
+            allergènes: [""],
+            options: {
+              multiple: {
+                extras: [
+                  ["Tapioca", "2€"],
+                  ["Litchi", "2€"],
+                ],
               },
-            ],
+              unique: {
+                bulles: ["Tapioca", "Litchi", "Aucune"],
+                "taux de sucre": ["Faible", "Moyen", "Elevé"],
+                thé: ["Vert", "Noir"],
+                température: ["Chaud", "Froid"],
+                taille: [
+                   ["Petit", "5€"],
+                   ["Moyen", "6€"],
+                   ["Grand", "7€"],
+                ],
+              }
+            },
           },
+          {
+            id: uuidv4(),
+            type: "Fruits",
+            image: require("../assets/img/coco-strawberry-latte.png"),
+            nom: "Pamplemousse doux",
+            description: "Une vraie douceur!",
+            allergènes: [""],
+            options: {
+              multiple: {
+                extras: [
+                  ["Tapioca", "2€"],
+                  ["Litchi", "2€"],
+                ],
+              },
+              unique: {
+                bulles: ["Tapioca", "Litchi", "Aucune"],
+                "taux de sucre": ["Faible", "Moyen", "Elevé"],
+                thé: ["Vert", "Noir"],
+                température: ["Chaud", "Froid"],
+                taille: [
+                   ["Petit", "5€"],
+                   ["Moyen", "6€"],
+                   ["Grand", "7€"],
+                ],
+              }
+            },
+          },
+
         ],
       },
     },
     nourriture: {
       "banh mi": {
-        "sauce piquante": ["Oui", "Non"],
         filtres: ["Végé", "Poulet", "Boeuf"],
         produits: [
           {
-            id: 4,
+            id: uuidv4(),
             type: "Poulet",
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Banh Mi Poulet",
-            description: "Best seller!",
+            description: "Qui est très bon",
             prix: "3€",
-            légumes: ["Concombre", "Carotte", "Coriandre"],
-            allergènes: ["Bla bla bla"],
+            allergènes: [""],
             régime: ["Halal", "Vegan"],
+            options: {
+              multiple: {
+                légumes: ["Concombre", "Carotte", "Coriandre"],
+                extras: [
+                  ["Sauce piquante", "2€"],
+                ],
+              },
+              unique: {
+                "sauce piquante": ["Oui", "Non"],
+              }
+            },
           },
         ],
       },
       wraps: {
-        "sauce piquante": ["Oui", "Non"],
         filtres: ["Végé", "Poulet", "Boeuf"],
         produits: [
           {
-            id: 5,
+            id: uuidv4(),
             type: "Poulet",
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Wrap Poulet",
             description: "Basic!",
             prix: "3€",
-            légumes: ["Concombre", "Carotte", "Coriandre", "Oignon rouge"],
-            allergènes: ["Bla bla bla"],
+            allergènes: [""],
             régime: ["Halal", "Vegan"],
+            options: {
+              multiple: {
+                légumes: ["Concombre", "Carotte", "Coriandre"],
+                extras: [
+                  ["Sauce piquante", "2€"],
+                ],
+              },
+              unique: {
+                "sauce piquante": ["Oui", "Non"],
+              }
+            },
           },
           {
-            id: 6,
+            id: uuidv4(),
             type: "Boeuf",
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Wrap Boeuf",
-            description: "Louurd!",
+            description: "Le préféré du staff!",
             prix: "3€",
-            légumes: ["Concombre", "Carotte", "Coriandre", "Oignon rouge"],
-            allergènes: ["Bla bla bla"],
-            régime: ["Halal", "Vegan"],
+            allergènes: [""],
+            régime: ["Halal", "Porc"],
+            options: {
+              multiple: {
+                légumes: ["Concombre", "Carotte", "Coriandre"],
+                extras: [
+                  ["Sauce piquante", "2€"],
+                ],
+              },
+              unique: {
+                "sauce piquante": ["Oui", "Non"],
+              }
+            },
           },
           {
-            id: 7,
+            id: uuidv4(),
             type: "Végé",
             image: require("../assets/img/banhmi-viande.png"),
             nom: "Wrap Végé",
             description: "Basic!",
             prix: "3€",
-            légumes: ["Concombre", "Carotte", "Coriandre", "Oignon rouge"],
-            allergènes: ["Bla bla bla"],
+            allergènes: [""],
             régime: ["Halal", "Vegan"],
+            options: {
+              multiple: {
+                extras: [
+                  ["Sauce piquante", "2€"],
+                  ["Ketchup", "2€"],
+                  ["Mayonnaise", "2€"],
+                ],
+              },
+              unique: {                
+                légumes: ["Concombre", "Carotte", "Coriandre"],
+                "sauce piquante": ["Oui", "Non"],
+              }
+            },
           },
         ],
       },

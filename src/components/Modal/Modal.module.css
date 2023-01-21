@@ -10,7 +10,7 @@
 }
 
 .modal-overlay--hidden {
-    background-color: transparent;
+    display: none;
 }
 
 .modal {
@@ -19,16 +19,26 @@
     left: 0;
     width: 100%;
     height: 80%;
-    padding: 60px;
+    padding: 130px 60px 200px;
     background: #fff;
     border-radius: 70px 70px 0 0;
-    overflow-y: auto;
     z-index: 2;
     animation: showModal 0.5s forwards;
 }
 
 .modal--hidden {
     animation: hideModal 0.5s forwards;
+}
+
+.close-icon {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.close-icon svg {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
 }
 
 @keyframes showModal {
