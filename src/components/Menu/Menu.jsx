@@ -10,6 +10,25 @@ import { useState, useEffect } from "react"
 export default function Menu() {
     const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", categoryVariety: "", products: Object.keys(data.catégories["boissons"]).map(categoryVariety => data.catégories["boissons"][categoryVariety]["produits"]).flat() });
     const [selectedFilter, setSelectedFilter] = useState("");
+    const cartContent =
+    [
+        {
+            id:1,
+            name:'Bubble Tea Brown Sugar',
+            image: require("../../assets/img/coco-strawberry-latte.png"),
+            price:9,
+            quantity:2,
+            extras : [],
+        },
+        {
+            id:2,
+            name:'Bubble Tea Fraise',
+            image: require("../../assets/img/coco-strawberry-latte.png"),
+            price:4,
+            quantity:3,
+            extras : [],
+        }
+    ];
 
     useEffect(() => {
         if(selectedFilter) setSelectedFilter("");
@@ -36,7 +55,7 @@ export default function Menu() {
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} />)}
                 </div>
-                <Cart />
+                <Cart cartProducts={cartContent} />
             </div>
         </div>
     )
