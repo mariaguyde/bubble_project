@@ -10,14 +10,19 @@ import { useState, useEffect } from "react"
 export default function Menu() {
     const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", categoryVariety: "", products: Object.keys(data.catégories["boissons"]).map(categoryVariety => data.catégories["boissons"][categoryVariety]["produits"]).flat() });
     const [selectedFilter, setSelectedFilter] = useState("");
-    const cartContent =
+    const [cartContent,setCartContent ] = useState(
     [
         {
             id:1,
             name:'Bubble Tea Brown Sugar',
             image: require("../../assets/img/coco-strawberry-latte.png"),
             price:9,
-            quantity:2,
+            quantity:1,
+            options : {
+                        the : 'Vert',
+                        bulles : 'Tapioca',
+                        lait : 'Amande'
+            },
             extras : [],
         },
         {
@@ -25,10 +30,29 @@ export default function Menu() {
             name:'Bubble Tea Fraise',
             image: require("../../assets/img/coco-strawberry-latte.png"),
             price:4,
-            quantity:3,
+            quantity:2,
+            options : {
+                the : 'Noir',
+                bulles : 'Aucune bulles',
+            },
             extras : [],
+        },
+        {
+            id:3,
+            name:'Wrap Boeuf',
+            image: require("../../assets/img/banhmi-viande.png"),
+            price:4,
+            quantity:3,
+            options : {
+                legumes : ['Concombre', 'Carotte', "Oignon rouge"],
+            },
+            extras : ["Carotte"],
         }
-    ];
+    ]);
+
+    setInterval(()=> {
+        //console.log(cartContent);
+    }, 3000);
 
     useEffect(() => {
         if(selectedFilter) setSelectedFilter("");
@@ -55,7 +79,7 @@ export default function Menu() {
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} />)}
                 </div>
-                <Cart cartProducts={cartContent} />
+                <Cart cartProducts={cartContent} setCartContent={setCartContent}/>
             </div>
         </div>
     )

@@ -5,26 +5,49 @@ import React, { useState } from 'react';
 import especes from "../../assets/img/money.png";
 import carteCredit from "../../assets/img/credit-card.svg";
 
-export default function Cart({ cartProducts }) {
+export default function Cart({ cartProducts, setCartContent }) {
 
     // intégration de la maquette
     // TODO Mise en page des données
-    // TODO récupération des éléments du panier du client
-    // TODO persistance des infos du panier si possible
-
+    // récupération des éléments du panier du client
+    // TODO Calcul du total
+    // Gestion des quantités des produits
 
     const [showCart, setShowCart] = useState(false);
-    const [itemQuantity, setItemQuantity] = useState(1);
     const [prix, setprix] = useState(1);
 
-    // récupération des produits ajoutés dans le panier
-    console.log(cartProducts);
+
+    const changeCartState = (choosedproductId, operation) => {
+        let dubstbin = null;
+        const newCartContent = cartProducts.map((product,i) => {
+            if(product.id === choosedproductId){
+                if (operation === 'decrease' ) {
+                    //product.quantity > 1 ? return  {...product, quantity: product.quantity - 1 } :  dubstbin = i
+                    if (product.quantity > 1) {
+                        return  {...product, quantity: product.quantity - 1 };
+                    }
+                    else {
+                        dubstbin = i;
+                    }
+                }
+                else {
+                    return  {...product, quantity: product.quantity + 1 }
+                }
+            }
+            return  {...product};
+        });
+
+        if (dubstbin !== null)
+            newCartContent.splice(dubstbin, 1);
+
+        setCartContent(newCartContent);
+    }
 
     return (
         <>
             <div onClick={() => setShowCart(true)} className={style["cart-container"]}>
                 <div className={style["quantity-container"]}>
-                    0
+                    {cartProducts.length}
                 </div>
                 <div className={style["cart-icon"]}>
                     <img src={CartIcon} alt="icône panier" />
@@ -37,19 +60,19 @@ export default function Cart({ cartProducts }) {
                         <h1>Panier</h1>
                         <div className={style["panier_details"]}>
                             <div id={style["panier_produitslist"]}>
-                                {cartProducts.map(product=>
-                                    <div className={style["panier_produit"]}>
+                                {cartProducts.map((product, i) =>
+                                    <div id={product.id} className={style["panier_produit"]}>
                                         <img src={product.image} alt="produit"/>
                                         <div className={style["panier_nomProduit"]}>
                                             <p>{product.name}</p>
                                             <p>{product.price} €</p>
                                         </div>
                                         <div className={style["panier_produitQuantite"]}>
-                                            <div onClick={() => itemQuantity !== 0 ? setItemQuantity(itemQuantity - 1) : null}>
+                                            <div onClick={() => {changeCartState(product.id, 'decrease');}}>
                                                 -
                                             </div>
                                             <p>{product.quantity}</p>
-                                            <div onClick={() => setItemQuantity(product.quantity + 1)}>
+                                            <div onClick={() => {changeCartState(product.id, 'increase');}}>
                                                 +
                                             </div>
                                         </div>
