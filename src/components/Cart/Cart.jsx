@@ -1,7 +1,7 @@
 import style from './Cart.module.css';
 import CartIcon from "../../assets/img/basket.png";
 import Modal from '../Modal/Modal';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import especes from "../../assets/img/money.png";
 import carteCredit from "../../assets/img/credit-card.svg";
 
@@ -10,12 +10,17 @@ export default function Cart({ cartProducts, setCartContent }) {
     // intégration de la maquette
     // TODO Mise en page des données
     // récupération des éléments du panier du client
-    // TODO Calcul du total
+    // Calcul du total
     // Gestion des quantités des produits
 
     const [showCart, setShowCart] = useState(false);
-    const [prix, setprix] = useState(1);
+    const [prixTotal, setPrixTotal] = useState(0);
 
+    const calculTotalCart = () => {
+        let total = 0;
+        cartProducts.map((product) => {total += product.quantity * product.price;});
+        setPrixTotal(total);
+    }
 
     const changeCartState = (choosedproductId, operation) => {
         let dubstbin = null;
@@ -41,7 +46,12 @@ export default function Cart({ cartProducts, setCartContent }) {
             newCartContent.splice(dubstbin, 1);
 
         setCartContent(newCartContent);
+        calculTotalCart();
     }
+
+    useEffect(() => {
+        calculTotalCart();
+    }, );
 
     return (
         <>
@@ -83,12 +93,12 @@ export default function Cart({ cartProducts, setCartContent }) {
                             <div className={style["panier_montantTotal"]}>
                                 <div>
                                     <p>Total</p>
-                                    <p>{prix} $</p>
+                                    <p>{prixTotal} $</p>
                                 </div>
                                 <hr></hr>
                                 <div>
                                     <p>Total + taxes</p>
-                                    <p>{prix*1.2}$</p>
+                                    <p>{prixTotal*1.2}$</p>
                                 </div>
                             </div>
 
