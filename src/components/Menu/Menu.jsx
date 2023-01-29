@@ -24,7 +24,10 @@ export default function Menu() {
             options : {
                         the : 'Vert',
                         bulles : 'Tapioca',
-                        lait : 'Amande'
+                        lait : 'Amande',
+                        taille : "Petit",
+                        température: ["Froid"],
+                        "taux de sucre": "Moyen",
             },
             extras : [],
         },
@@ -32,24 +35,39 @@ export default function Menu() {
             id:2,
             name:'Bubble Tea Fraise',
             image: require("../../assets/img/coco-strawberry-latte.png"),
-            price:4,
+            price:4, // mettre le prix correspondant à la taille du BBT
             quantity:2,
             options : {
                 the : 'Noir',
                 bulles : 'Aucune bulles',
+                taille : "Petit",
             },
             extras : [],
         },
         {
             id:3,
+            type: "Boeuf",
             name:'Wrap Boeuf',
             image: require("../../assets/img/banhmi-viande.png"),
             price:4,
             quantity:3,
             options : {
                 legumes : ['Concombre', 'Carotte', "Oignon rouge"],
+                sauce_piquante : "Non"
             },
             extras : ["Carotte"],
+        },
+        {
+            id:4,
+            type: "Poulet",
+            name:'Banh Mi Poulet',
+            image: require("../../assets/img/banhmi-viande.png"),
+            price:4,
+            quantity:3,
+            options : {
+                sauce_piquante : "Oui"
+            },
+            extras : ["Carotte", "Concombre"],
         }
     ]);
 

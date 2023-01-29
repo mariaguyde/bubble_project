@@ -75,6 +75,22 @@ export default function Cart({ cartProducts, setCartContent }) {
                                         <img src={product.image} alt="produit"/>
                                         <div className={style["panier_nomProduit"]}>
                                             <p>{product.name}</p>
+                                            {product.options.taille && (
+                                                <p>{product.options.taille}</p>
+                                            )}
+
+                                            {product.type && (
+                                                <p>{product.type}</p>
+                                            )}
+
+                                            {product.options['sauce_piquante'] && (
+                                                <p>{product.options['sauce_piquante'] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
+
+                                            )}
+
+                                            {product.extras[0] && (
+                                              <p> Extra(s) :  {product.extras.map(extra => <span>{extra} </span>)}</p>
+                                            )}
                                             <p>{product.price * product.quantity} €</p>
                                         </div>
                                         <div className={style["panier_produitQuantite"]}>
