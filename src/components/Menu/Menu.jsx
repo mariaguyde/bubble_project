@@ -10,6 +10,9 @@ import { useState, useEffect } from "react"
 export default function Menu() {
     const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", categoryVariety: "", products: Object.keys(data.catégories["boissons"]).map(categoryVariety => data.catégories["boissons"][categoryVariety]["produits"]).flat() });
     const [selectedFilter, setSelectedFilter] = useState("");
+
+    // Note de Maria : l'initialState a été défini par défaut pour que je puisse faire le panier
+    // TODO Vider l'initialState une fois que l'ajout d'un produit au panier est fait
     const [cartContent,setCartContent ] = useState(
     [
         {
@@ -49,10 +52,6 @@ export default function Menu() {
             extras : ["Carotte"],
         }
     ]);
-
-    setInterval(()=> {
-        //console.log(cartContent);
-    }, 3000);
 
     useEffect(() => {
         if(selectedFilter) setSelectedFilter("");

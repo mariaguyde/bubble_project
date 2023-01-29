@@ -75,7 +75,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                                         <img src={product.image} alt="produit"/>
                                         <div className={style["panier_nomProduit"]}>
                                             <p>{product.name}</p>
-                                            <p>{product.price} €</p>
+                                            <p>{product.price * product.quantity} €</p>
                                         </div>
                                         <div className={style["panier_produitQuantite"]}>
                                             <div onClick={() => {changeCartState(product.id, 'decrease');}}>
