@@ -1,17 +1,17 @@
 .home {
-    width: 100vw;
-    height: 100vh;
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.link {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    background-color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.home--hidden {
+    opacity: 0;
 }
 
 .home-logo {

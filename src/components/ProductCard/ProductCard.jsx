@@ -1,5 +1,6 @@
 import style from './ProductCard.module.css'
 import Modal from '../Modal/Modal';
+import NotFound from '../NotFound/NotFound';
 import { useState } from 'react'
 
 export default function ProductCard({ productDetails }) {
@@ -8,6 +9,11 @@ export default function ProductCard({ productDetails }) {
   return (
     <>
       <div onClick={() => setShowProductDetails(true)} className={style["product-card"]}>
+        {!productDetails.disponibilité && (
+          <div className={style["product-unavailable"]}>
+            Indisponible
+          </div>
+        )}
         <div className={style["product-image"]}>
           <img src={productDetails.image} alt={`image ${productDetails.nom}`} />
         </div>
@@ -17,8 +23,10 @@ export default function ProductCard({ productDetails }) {
       </div>
       {showProductDetails && (
         <Modal setShowModal={setShowProductDetails}>
-            {/* code here to display the product details */}
-            Afficher les détails du produit ici
+          {productDetails.disponibilité ?
+            (<form>/* code here to display the product details */</form>)
+            :
+            <NotFound productName={productDetails.nom} />}
         </Modal>
       )}
     </>
