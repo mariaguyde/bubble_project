@@ -1,5 +1,5 @@
 {
-  "name": "bubble-project",
+  "name": "bubble_project",
   "version": "0.1.0",
   "homepage" : "https://mariaguyde.github.io/bubble_project/",
   "private": true,
@@ -42,4 +42,5 @@
   "devDependencies": {
     "gh-pages": "^5.0.0"
   }
+
 }
