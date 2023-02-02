@@ -3,6 +3,10 @@
 
 ### Yolène CONSTABLE, Aline HY, Maria GUY DE FONTGALLAND 
 
+
+### Hébergement du projet 
+Si vous souhaitez voir le projet sans avoir à l'installer en local, consultez le lien suivant : https://mariaguyde.github.io/bubble_project/ 
+
 ### Lancement du projet 
 1 - Installer les modules nécessaires 
 ```
