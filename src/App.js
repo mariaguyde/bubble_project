@@ -3,6 +3,7 @@ import "./App.css";
 import './variables.css'
 import Home from "./components/Home/Home";
 import Menu from "./components/Menu/Menu";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     </div>
   );
