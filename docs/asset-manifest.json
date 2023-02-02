@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/bubble_project/static/css/main.ad71b094.css",
+    "main.js": "/bubble_project/static/js/main.18b2b531.js",
+    "static/media/banhmi-viande.png": "/bubble_project/static/media/banhmi-viande.8f168b509f7c7154ef3d.png",
+    "static/media/coco-strawberry-latte.png": "/bubble_project/static/media/coco-strawberry-latte.d962695020a9951b2ebf.png",
+    "static/media/bao.png": "/bubble_project/static/media/bao.3c7bf1d3c9e4019b3368.png",
+    "static/media/bu.svg": "/bubble_project/static/media/bu.c69e2956e5ad9cdfb54f1fdbbe85b939.svg",
+    "index.html": "/bubble_project/index.html",
+    "main.ad71b094.css.map": "/bubble_project/static/css/main.ad71b094.css.map",
+    "main.18b2b531.js.map": "/bubble_project/static/js/main.18b2b531.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ad71b094.css",
+    "static/js/main.18b2b531.js"
+  ]
+}
