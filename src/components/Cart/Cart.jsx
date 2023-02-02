@@ -111,11 +111,6 @@ export default function Cart({ cartProducts, setCartContent }) {
                                     <p>Total</p>
                                     <p>{prixTotal} $</p>
                                 </div>
-                                <hr></hr>
-                                <div>
-                                    <p>Total + taxes</p>
-                                    <p>{((prixTotal*1.2).toString()).substr(0, 5)} $</p>
-                                </div>
                             </div>
 
                             <div id={style["panier_paiement"]}>
