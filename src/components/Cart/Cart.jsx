@@ -24,6 +24,7 @@ export default function Cart({ cartProducts, setCartContent }) {
 
     const changeCartState = (choosedproductId, operation) => {
         let dubstbin = null;
+        // TODO UPDATE EN FONCTION DE L'INDEX DU PRODUIT DANS LE PANIER
         const newCartContent = cartProducts.map((product,i) => {
             if(product.id === choosedproductId){
                 if (operation === 'decrease' ) {
