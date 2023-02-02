@@ -27,7 +27,6 @@ export default function Cart({ cartProducts, setCartContent }) {
         const newCartContent = cartProducts.map((product,i) => {
             if(product.id === choosedproductId){
                 if (operation === 'decrease' ) {
-                    //product.quantity > 1 ? return  {...product, quantity: product.quantity - 1 } :  dubstbin = i
                     if (product.quantity > 1) {
                         return  {...product, quantity: product.quantity - 1 };
                     }
@@ -114,7 +113,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                                 <hr></hr>
                                 <div>
                                     <p>Total + taxes</p>
-                                    <p>{prixTotal*1.2}$</p>
+                                    <p>{((prixTotal*1.2).toString()).substr(0, 5)} $</p>
                                 </div>
                             </div>
 
@@ -135,7 +134,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                                         value="espece"
                                     />
                                     <img src={especes} alt="carte de crédit"/>
-                                    <p>En comptant</p>
+                                    <p>En espèces</p>
                                 </div>
                             </div>
                             <button className={style["btn_commander"]}>Commander</button>
