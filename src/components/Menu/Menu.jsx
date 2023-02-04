@@ -16,58 +16,85 @@ export default function Menu() {
     const [cartContent,setCartContent ] = useState(
     [
         {
-            id:1,
-            name:'Bubble Tea Brown Sugar',
-            image: require("../../assets/img/coco-strawberry-latte.png"),
-            price:9,
-            quantity:1,
-            options : {
-                        the : 'Vert',
-                        bulles : 'Tapioca',
-                        lait : 'Amande',
-                        taille : "Petit",
-                        température: ["Froid"],
-                        "taux de sucre": "Moyen",
-            },
-            extras : [],
-        },
-        {
             id:2,
             name:'Bubble Tea Fraise',
             image: require("../../assets/img/coco-strawberry-latte.png"),
-            price:4, // mettre le prix correspondant à la taille du BBT
-            quantity:2,
-            options : {
-                the : 'Noir',
-                bulles : 'Aucune bulles',
-                taille : "Petit",
-            },
-            extras : [],
+            quantity:1,
+            options: {
+                multiple: {
+                    extras: [
+                        ["Litchi", 2],
+                        ["Sucre", 2],
+                    ],
+                },
+                unique: {
+                    bulles: ["Litchi"],
+                    "taux de sucre": ["Faible"],
+                    thé: ["Vert"],
+                    température: ["Froid"],
+                    taille: [
+                        ["Petit", 5],
+                    ],
+                }
+            }
         },
         {
             id:3,
             type: "Boeuf",
             name:'Wrap Boeuf',
             image: require("../../assets/img/banhmi-viande.png"),
-            price:4,
-            quantity:3,
-            options : {
-                legumes : ['Concombre', 'Carotte', "Oignon rouge"],
-                sauce_piquante : "Non"
+            prix:4,
+            quantity:2,
+            options: {
+                multiple: {
+                    legumes : ['Concombre', 'Carotte', "Oignon rouge"],
+                    extras: [
+                        ["Carotte", 2],
+                        ["Concombre", 2],
+                    ],
+                },
+                unique: {
+                    "sauce piquante": ["Oui"],
+                }
             },
-            extras : ["Carotte"],
+        },
+        {
+            id:3,
+            type: "Boeuf",
+            name:'Wrap Boeuf',
+            image: require("../../assets/img/banhmi-viande.png"),
+            prix:4,
+            quantity:1,
+            options: {
+                multiple: {
+                    legumes : ['Concombre', 'Carotte', "Oignon rouge"],
+                    extras: [
+                        ["Carotte", 2],
+                    ],
+                },
+                unique: {
+                    "sauce piquante": ["Non"],
+                }
+            },
         },
         {
             id:4,
             type: "Poulet",
             name:'Banh Mi Poulet',
             image: require("../../assets/img/banhmi-viande.png"),
-            price:4,
-            quantity:3,
-            options : {
-                sauce_piquante : "Oui"
+            prix:4,
+            quantity:1,
+            options: {
+                multiple: {
+                    légumes: ["Concombre", "Carotte", "Coriandre"],
+                    extras: [
+                        ["Concombre", 2],
+                    ],
+                },
+                unique: {
+                    "sauce piquante": ["Oui"],
+                }
             },
-            extras : ["Carotte", "Concombre"],
         }
     ]);
 

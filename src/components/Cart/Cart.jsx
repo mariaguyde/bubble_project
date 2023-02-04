@@ -12,21 +12,35 @@ export default function Cart({ cartProducts, setCartContent }) {
     // récupération des éléments du panier du client
     // Calcul du total
     // Gestion des quantités des produits
+    // Mettre les options comme dans la data et les afficher avec cette structure
+    // TODO Component Quantity Picker à mettre en place
 
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
 
     const calculTotalCart = () => {
         let total = 0;
-        cartProducts.map((product) => {total += product.quantity * product.price;});
+        cartProducts.map((product) => {
+            let totalProduitPersonnalise = 0;
+
+            if (product.options.unique.taille) {
+                totalProduitPersonnalise += product.options.unique.taille[0][1];
+            }
+            else {
+                totalProduitPersonnalise += product.prix;
+            }
+            let totalExtras = 0;
+            product.options.multiple.extras.map(extra => totalExtras += extra[1]);
+            product.productPersonalizedPrice = totalProduitPersonnalise + totalExtras;
+            total += (product.quantity * product.productPersonalizedPrice);
+        });
         setPrixTotal(total);
     }
 
-    const changeCartState = (choosedproductId, operation) => {
+    const changeCartState = (choosedproductIndex, operation) => {
         let dubstbin = null;
-        // TODO UPDATE EN FONCTION DE L'INDEX DU PRODUIT DANS LE PANIER
         const newCartContent = cartProducts.map((product,i) => {
-            if(product.id === choosedproductId){
+            if(i === choosedproductIndex){
                 if (operation === 'decrease' ) {
                     if (product.quantity > 1) {
                         return  {...product, quantity: product.quantity - 1 };
@@ -75,37 +89,33 @@ export default function Cart({ cartProducts, setCartContent }) {
                                         <img src={product.image} alt="produit"/>
                                         <div className={style["panier_nomProduit"]}>
                                             <p>{product.name}</p>
-                                            {product.options.taille && (
-                                                <p>{product.options.taille}</p>
+                                            {product.options.unique.taille && (
+                                                <p>{product.options.unique.taille[0][0]}</p>
+                                            )}
+                                            {product.options.unique["sauce piquante"] && (
+                                                <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
                                             )}
 
-                                            {product.type && (
-                                                <p>{product.type}</p>
+                                            {product.options.multiple.extras && (
+                                                <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
                                             )}
 
-                                            {product.options['sauce_piquante'] && (
-                                                <p>{product.options['sauce_piquante'] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
 
-                                            )}
-
-                                            {product.extras[0] && (
-                                              <p> Extra(s) :  {product.extras.map(extra => <span>{extra} </span>)}</p>
-                                            )}
-                                            <p>{product.price * product.quantity} €</p>
+                                            <p>{product.productPersonalizedPrice * product.quantity} €</p>
                                         </div>
                                         <div className={style["panier_produitQuantite"]}>
-                                            <div onClick={() => {changeCartState(product.id, 'decrease');}}>
+                                            <div onClick={() => {changeCartState(i, 'decrease');}}>
                                                 -
                                             </div>
                                             <p>{product.quantity}</p>
-                                            <div onClick={() => {changeCartState(product.id, 'increase');}}>
+                                            <div onClick={() => {changeCartState(i, 'increase');}}>
                                                 +
                                             </div>
                                         </div>
                                     </div>
                                 )}
                             </div>
-
+                            <hr/>
                             <div className={style["panier_montantTotal"]}>
                                 <div>
                                     <p>Total</p>
