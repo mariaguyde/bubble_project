@@ -1,11 +1,11 @@
-.category-varieties-item {
+.menu-subcategories-item {
     position: relative;
     width: fit-content;
     padding-left: 15px;
     word-break: break-word;
 }
 
-.category-varieties-item--active::before {
+.menu-subcategories-item--active::before {
     content: "";
     position: absolute;
     right: -45px;
@@ -14,10 +14,10 @@
     background-image: url(../../assets/img/bao.png);
     background-size: contain;
     background-repeat: no-repeat;
-    animation: jumpAnim 1s alternate infinite;
+    animation: jumpAnim 1.2s alternate infinite;
 }
 
-.category-varieties-item:not(:last-child) {
+.menu-subcategories-item:not(:last-child) {
     margin-bottom: 15px;
 }
 

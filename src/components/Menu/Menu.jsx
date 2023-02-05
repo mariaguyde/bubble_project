@@ -5,15 +5,11 @@ import ProductCard from "../ProductCard/ProductCard"
 import Filter from "../Filter/Filter"
 import Cart from "../Cart/Cart"
 import LogoBubulle from "../../assets/svg/bu.svg"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 export default function Menu() {
-    const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", categoryVariety: "", products: Object.keys(data.catégories["boissons"]).map(categoryVariety => data.catégories["boissons"][categoryVariety]["produits"]).flat() });
+    const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", subcategory: "", products: Object.keys(data.catégories["boissons"]).map(subcategory => data.catégories["boissons"][subcategory]["produits"]).flat() });
     const [selectedFilter, setSelectedFilter] = useState("");
-
-    useEffect(() => {
-        if(selectedFilter) setSelectedFilter("");
-    }, [selectedCategory.category, selectedCategory.categoryVariety])
 
     return (
         <div className={style["menu"]}>
@@ -23,14 +19,14 @@ export default function Menu() {
                 </div>
                 <div className={style["menu-categories-title"]}>Catégories</div>
                 <ul className={style["menu-categories"]}>
-                    {Object.keys(data.catégories).map((category, i) => <MenuCategory key={i} name={category} categoryVarieties={Object.keys(data.catégories[category])} isActive={selectedCategory.category === category} selectedCategory={selectedCategory} selectCategory={setSelectedCategory} />)}
+                    {Object.keys(data.catégories).map((category, i) => <MenuCategory key={i} name={category} isActive={selectedCategory.category === category} selectedCategory={selectedCategory} selectCategory={setSelectedCategory} setFilter={setSelectedFilter} />)}
                 </ul>
                 <div className={style["menu-signature"]}>Made with ❤️ <br /> by Yolène CONSTABLE, Aline HY & Maria GUY DE FONTGALLAND</div>
             </div>
             <div className={style["menu-gallery"]}>
-                {selectedCategory.categoryVariety && (
+                {selectedCategory.subcategory && (
                     <div className={style["filters-container"]}>
-                        {data.catégories[selectedCategory.category][selectedCategory.categoryVariety]["filtres"].map((filterName, i) => <Filter key={i} name={filterName} isActive={selectedFilter === filterName} selectedCategory={selectedCategory} selectFilter={setSelectedFilter} filterProducts={setSelectedCategory} />)}
+                        {data.catégories[selectedCategory.category][selectedCategory.subcategory]["filtres"].map((filterName, i) => <Filter key={i} name={filterName} isActive={selectedFilter === filterName} selectedCategory={selectedCategory} filterProducts={setSelectedCategory} selectFilter={setSelectedFilter} />)}
                     </div>
                 )}
                 <div className={style["product-cards-container"]}>
