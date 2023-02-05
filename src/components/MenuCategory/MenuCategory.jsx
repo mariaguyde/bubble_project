@@ -1,19 +1,25 @@
 import style from './MenuCategory.module.css'
-import CategoryVariety from '../CategoryVariety/CategoryVariety';
+import MenuSubcategory from '../MenuSubcategory/MenuSubcategory';
 import { data } from "../../data/data"
 
 
-export default function MenuCategory({ name, categoryVarieties, isActive, selectedCategory, selectCategory }) {
+export default function MenuCategory({ name, isActive, selectedCategory, selectCategory, setFilter }) {
+
+  const onSelectCategory = () => selectCategory({ category: name, subcategory: "", products: Object.keys(data.catégories[name]).map(subcategory => data.catégories[name][subcategory]["produits"]).flat() });
+  const onSelectSubcategory = (subcategoryName) => {
+    selectCategory({ ...selectedCategory, subcategory: subcategoryName, products: data.catégories[name][subcategoryName]["produits"] });
+    setFilter("Tout");
+  };
 
   return (
     <li className={style["menu-categories-item"]}>
       <div className={style["menu-category"]}>
         {isActive && <div className={style["selector"]}></div>}
-        <div onClick={() => selectCategory({ category: name, categoryVariety: "", products: Object.keys(data.catégories[name]).map(categoryVariety => data.catégories[name][categoryVariety]["produits"]).flat()})} className={style["menu-category__text"]}>{name}</div>
+        <div onClick={onSelectCategory} className={style["menu-category__text"]}>{name}</div>
       </div>
       {isActive && (
-        <ul className={style["category-varieties"]}>
-          {categoryVarieties.map((categoryVarietyName, i) => <CategoryVariety key={i} name={categoryVarietyName} isActive={selectedCategory.categoryVariety === categoryVarietyName} selectCategoryVariety={() => selectCategory({ ...selectedCategory, categoryVariety: categoryVarietyName, products: data.catégories[name][categoryVarietyName]["produits"]})} />)}
+        <ul className={style["menu-subcategories"]}>
+          {Object.keys(data.catégories[name]).map((subcategoryName, i) => <MenuSubcategory key={i} name={subcategoryName} isActive={selectedCategory.subcategory === subcategoryName} selectSubcategory={() => onSelectSubcategory(subcategoryName)} />)}
         </ul>
       )}
     </li>
