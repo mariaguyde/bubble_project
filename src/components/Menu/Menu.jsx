@@ -119,7 +119,7 @@ export default function Menu() {
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} />)}
                 </div>
-                <Cart cartProducts={cartContent} />
+                <Cart cartProducts={cartContent} setCartContent={setCartContent}/>
             </div>
         </div>
     )

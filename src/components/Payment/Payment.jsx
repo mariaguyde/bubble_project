@@ -25,7 +25,7 @@ export default function Payment ({cartContent, methodePaiement}) {
                     <input type="text" placeholder="ex : marioncauchet@test.com" name="mail"/>
                 </div>
 
-                {methodePaiement === 'especes' && (<p>Veuillez vous rendre au comptoir pour pouvoir payer votre commande.</p>) }
+                {methodePaiement === 'espece' && (<p>Veuillez vous rendre au comptoir pour pouvoir payer votre commande.</p>) }
                 {methodePaiement === 'carte-debit' && (
                     <div>
                         <div>

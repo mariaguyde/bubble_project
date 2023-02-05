@@ -18,13 +18,15 @@ export default function Cart({ cartProducts, setCartContent }) {
 
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
-    const [methodePaiement, setMethodePaiement] = useState('');
+    const [methodePaiement, setMethodePaiement] = useState(' ');
     const [showPaymentpart, setshowPaymentpart] = useState('none');
     const [showCartDetails, setShowCartDetails] = useState('block');
 
     const changeVisibility = () => {
-        setShowCartDetails("none");
-        setshowPaymentpart("block");
+        if (methodePaiement !== ' ') {
+            setShowCartDetails("none");
+            setshowPaymentpart("block");
+        }
     }
 
     const calculTotalCart = () => {
@@ -142,7 +144,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                                         onChange={()=>{setMethodePaiement("carte-debit")}}
                                     />
                                     <img src={carteCredit} alt="carte de crédit"/>
-                                    <label for="carte-debit">Débit ou crédit</label>
+                                    <label htmlFor="carte-debit">Débit ou crédit</label>
                                 </div>
                                 <div className={style["panier_moyenPaiement"]}>
                                     <input
@@ -153,12 +155,19 @@ export default function Cart({ cartProducts, setCartContent }) {
                                         onChange={()=>{setMethodePaiement("espece")}}
                                     />
                                     <img src={especes} alt="carte de crédit"/>
-                                    <label for="espece" >En espèces</label>
+                                    <label htmlFor="espece" >En espèces</label>
                                 </div>
                             </div>
+
+                            {methodePaiement === ' ' && (
+                                <div>Veuillez choisir votre moyen de paiement </div>
+                            )}
+
+
                             <button onClick={changeVisibility} className={style["btn_commander"]}>Commander</button>
                         </div>
                     </div>
+
 
                     <div style={{display: showPaymentpart}}>
                         <Payment cartContent={cartProducts} methodePaiement={methodePaiement} />
