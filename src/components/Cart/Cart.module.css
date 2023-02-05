@@ -110,6 +110,13 @@ h1 {
 .panier_produit {
     align-items: center;
     justify-content: center;
+    margin: 45px 0;
+}
+
+.panier_nomProduit > p:first-child {
+    font-family: Montserrat, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
 }
 .panier_produit div {
     margin: 0 10px;
@@ -145,6 +152,7 @@ h1 {
 .panier_montantTotal div {
     display: flex;
     margin: 8px 0;
+    font-weight: bold;
     justify-content: space-around;
 }
 

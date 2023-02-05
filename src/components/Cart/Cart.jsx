@@ -4,6 +4,7 @@ import Modal from '../Modal/Modal';
 import React, {useEffect, useState} from 'react';
 import especes from "../../assets/img/money.png";
 import carteCredit from "../../assets/img/credit-card.svg";
+import Payment from "../Payment/Payment";
 
 export default function Cart({ cartProducts, setCartContent }) {
 
@@ -13,7 +14,7 @@ export default function Cart({ cartProducts, setCartContent }) {
     // Calcul du total
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
-    // TODO Component Quantity Picker à mettre en place
+    // TODO Component Quantity Picker à mettre en place quand j'ai fini la page paiement (vu que cest prioritaire)
 
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
@@ -100,7 +101,6 @@ export default function Cart({ cartProducts, setCartContent }) {
                                                 <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
                                             )}
 
-
                                             <p>{product.productPersonalizedPrice * product.quantity} €</p>
                                         </div>
                                         <div className={style["panier_produitQuantite"]}>
@@ -119,7 +119,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                             <div className={style["panier_montantTotal"]}>
                                 <div>
                                     <p>Total</p>
-                                    <p>{prixTotal} $</p>
+                                    <p>{prixTotal} €</p>
                                 </div>
                             </div>
 
@@ -146,6 +146,8 @@ export default function Cart({ cartProducts, setCartContent }) {
                             <button className={style["btn_commander"]}>Commander</button>
                         </div>
                     </div>
+
+                    <Payment cartContent={cartProducts}/>
                 </Modal>
             )}
         </>

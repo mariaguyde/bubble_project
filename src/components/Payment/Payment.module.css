@@ -1,0 +1,16 @@
+#form div {
+   margin: 10px 0;
+    display: flex;
+    width: min-content;
+    font-size: 16px;
+    flex-direction: column;
+}
+
+ {
+    background-color: var(--orange);
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    width: 100%;
+    color: white;
+}
