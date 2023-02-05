@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function NotFound({ productName }) {
   return (
-    <div className={style["not-found"]}>
+    <div style={{ height: productName ? "100%" : "100vh" }} className={style["not-found"]}>
         <div className={style["not-found-image"]}>
             <img src={Bao} alt="gif Bao confus" />
         </div>
