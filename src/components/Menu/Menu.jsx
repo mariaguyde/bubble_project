@@ -18,7 +18,7 @@ export default function Menu() {
         {
             id:2,
             name:'Bubble Tea Fraise',
-            image: require("../../assets/img/coco-strawberry-latte.png"),
+            image: require("../../assets/img/coco-bubble-gaga.jpg"),
             quantity:1,
             options: {
                 multiple: {
@@ -42,7 +42,7 @@ export default function Menu() {
             id:3,
             type: "Boeuf",
             name:'Wrap Boeuf',
-            image: require("../../assets/img/banhmi-viande.png"),
+            image: require("../../assets/img/banh_mi_boeuf.jpg"),
             prix:4,
             quantity:2,
             options: {
@@ -62,7 +62,7 @@ export default function Menu() {
             id:3,
             type: "Boeuf",
             name:'Wrap Boeuf',
-            image: require("../../assets/img/banhmi-viande.png"),
+            image: require("../../assets/img/banh_mi_boeuf.jpg"),
             prix:4,
             quantity:1,
             options: {
@@ -81,7 +81,7 @@ export default function Menu() {
             id:4,
             type: "Poulet",
             name:'Banh Mi Poulet',
-            image: require("../../assets/img/banhmi-viande.png"),
+            image: require("../../assets/img/banh_mi_boeuf.jpg"),
             prix:4,
             quantity:1,
             options: {
@@ -119,7 +119,7 @@ export default function Menu() {
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} />)}
                 </div>
-                <Cart />
+                <Cart cartProducts={cartContent} />
             </div>
         </div>
     )

@@ -93,7 +93,7 @@
 p {
     font-size: 1.5rem;
 }
-#container {
+.container {
     margin: 50px;
 }
 h1 {
@@ -186,6 +186,7 @@ h1 {
     padding: 13px;
     width: 100%;
     color: white;
+    cursor: pointer;
 }
 img {
     width: 10%;

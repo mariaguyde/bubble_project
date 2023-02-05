@@ -18,6 +18,14 @@ export default function Cart({ cartProducts, setCartContent }) {
 
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
+    const [methodePaiement, setMethodePaiement] = useState('');
+    const [showPaymentpart, setshowPaymentpart] = useState('none');
+    const [showCartDetails, setShowCartDetails] = useState('block');
+
+    const changeVisibility = () => {
+        setShowCartDetails("none");
+        setshowPaymentpart("block");
+    }
 
     const calculTotalCart = () => {
         let total = 0;
@@ -65,6 +73,7 @@ export default function Cart({ cartProducts, setCartContent }) {
     }
 
     useEffect(() => {
+        //document.getElementById("containerPayment").style.visibility = "hidden";
         calculTotalCart();
     }, );
 
@@ -81,7 +90,7 @@ export default function Cart({ cartProducts, setCartContent }) {
             {showCart && (
                 <Modal setShowModal={setShowCart}>
                     {/* code here to display all products contained in cart */}
-                    <div id={style["container"]}>
+                    <div className={style["container"]} style={{display: showCartDetails}}>
                         <h1>Panier</h1>
                         <div className={style["panier_details"]}>
                             <div id={style["panier_produitslist"]}>
@@ -127,27 +136,33 @@ export default function Cart({ cartProducts, setCartContent }) {
                                 <div className={style["panier_moyenPaiement"]}>
                                     <input
                                         type="radio"
-                                        name="paiement_carteDebit"
+                                        name="paiement_moyen"
                                         value="carte-debit"
+                                        id="carte-debit"
+                                        onChange={()=>{setMethodePaiement("carte-debit")}}
                                     />
                                     <img src={carteCredit} alt="carte de crédit"/>
-                                    <p>Débit ou crédit</p>
+                                    <label for="carte-debit">Débit ou crédit</label>
                                 </div>
                                 <div className={style["panier_moyenPaiement"]}>
                                     <input
                                         type="radio"
-                                        name="paiement_carteDebit"
+                                        name="paiement_moyen"
                                         value="espece"
+                                        id="espece"
+                                        onChange={()=>{setMethodePaiement("espece")}}
                                     />
                                     <img src={especes} alt="carte de crédit"/>
-                                    <p>En espèces</p>
+                                    <label for="espece" >En espèces</label>
                                 </div>
                             </div>
-                            <button className={style["btn_commander"]}>Commander</button>
+                            <button onClick={changeVisibility} className={style["btn_commander"]}>Commander</button>
                         </div>
                     </div>
 
-                    <Payment cartContent={cartProducts}/>
+                    <div style={{display: showPaymentpart}}>
+                        <Payment cartContent={cartProducts} methodePaiement={methodePaiement} />
+                    </div>
                 </Modal>
             )}
         </>
