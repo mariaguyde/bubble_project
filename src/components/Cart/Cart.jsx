@@ -21,9 +21,11 @@ export default function Cart({ cartProducts, setCartContent }) {
     const [methodePaiement, setMethodePaiement] = useState(' ');
     const [showPaymentpart, setshowPaymentpart] = useState('none');
     const [showCartDetails, setShowCartDetails] = useState('block');
+    const [commandNumber, setCommandNumber] = useState('block');
 
     const changeVisibility = () => {
         if (methodePaiement !== ' ') {
+            setCommandNumber(Math.random().toString(36).substring(3,9).toUpperCase());
             setShowCartDetails("none");
             setshowPaymentpart("block");
         }
@@ -97,7 +99,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                         <div className={style["panier_details"]}>
                             <div id={style["panier_produitslist"]}>
                                 {cartProducts.map((product, i) =>
-                                    <div id={product.id} className={style["panier_produit"]}>
+                                    <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
                                         <img src={product.image} alt="produit"/>
                                         <div className={style["panier_nomProduit"]}>
                                             <p>{product.name}</p>
@@ -170,7 +172,7 @@ export default function Cart({ cartProducts, setCartContent }) {
 
 
                     <div style={{display: showPaymentpart}}>
-                        <Payment cartContent={cartProducts} methodePaiement={methodePaiement} />
+                        <Payment commandNumber = {commandNumber} cartContent={cartProducts} methodePaiement={methodePaiement} />
                     </div>
                 </Modal>
             )}

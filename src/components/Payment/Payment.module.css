@@ -13,4 +13,5 @@ button
     padding: 13px;
     width: 100%;
     color: white;
+    cursor: pointer;
 }
