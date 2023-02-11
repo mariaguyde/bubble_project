@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import style from './Payment.module.css';
 import React, {useState} from 'react';
 
 export default function Payment ({cartContent, methodePaiement,commandNumber, numeroTable}) {
 
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({});
 
     const handleSubmit = (e) => {
@@ -21,7 +23,10 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
             }
             if (key == 'mail') {
                 //console.log(formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
-                formErrors[key] = formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) === null;
+                //formErrors[key] = formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) === null;
+                if (formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) === null) {
+                    formErrors[key] = true;
+                }
             }
         });
 
@@ -51,11 +56,12 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
         console.log("ERREURS DU FORM", formErrors);
         if(Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
-            return
         }
-        setErrors({});
-        // TODO Redirige vers le recap (facture) usenavigate devrait faire le taff
-
+        else {
+            setErrors({});
+            // TODO Redirige vers le recap (facture) usenavigate devrait faire le taff
+            navigate("/recapitulatif", {state: { cart: cartContent}});
+        }
 
     }
 
@@ -72,17 +78,17 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                 <div>
                     <label>Votre nom</label>
                     <input type="text"  name="nom" />
-                    {errors.nom && (<p>Veuillez renseignez votre nom</p>)}
+                    {errors.nom && (<div className={style['error_message']}>Veuillez renseignez votre nom</div>)}
                 </div>
                 <div>
                     <label>Votre prénom</label>
                     <input type="text"  name="prenom" />
-                    {errors.prenom   && (<p>Veuillez renseignez votre prénom</p>)}
+                    {errors.prenom   && (<div className={style['error_message']}>Veuillez renseignez votre prénom</div>)}
                 </div>
                 <div>
                     <label>Votre adresse mail</label>
                     <input type="email" name="email"  />
-                    {errors.mail && (<div>
+                    {errors.mail && (<div className={style['error_message']}>
                         <p>Veuillez renseignez votre addresse mail</p>
                         <p>
                             Votre adresse mail doit respecter le format suivant : <br/>
@@ -97,7 +103,7 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                         <div>
                             <label>Votre numéro de carte de crédit</label>
                             <input name="carteCredit_number"/>
-                            {errors.carteCredit_number && (<div>
+                            {errors.carteCredit_number && (<div className={style['error_message']}>
                                 <p>Veuillez renseignez votre numéro de carte de crédit</p>
                                 <p>
                                     Votre numéro de carte de crédit doit respecter le format suivant : <br/>
@@ -108,7 +114,7 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                         <div>
                             <label>CVC</label>
                             <input type="text"  name="carteCredit_cvc"/>
-                            {errors.carteCredit_cvc && (<div>
+                            {errors.carteCredit_cvc && (<div className={style['error_message']}>
                                 <p>Veuillez renseignez le code CVC de votre carte</p>
                                 <p>
                                     Le code CVC de votre carte de crédit doit respecter le format suivant:
@@ -121,7 +127,7 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                             <label>Date d'expiration de votre carte</label>
                             <input type="text" name="carteCredit_expirationDate"/>
                         </div>
-                        {errors.carteCredit_expirationDate && (<div>
+                        {errors.carteCredit_expirationDate && (<div className={style['error_message']}>
                             <p>Veuillez renseignez la date d'expiration de votre carte</p>
                             <p>
                                 La date d'expiration de votre carte doit respecter le format suivant : <br/>

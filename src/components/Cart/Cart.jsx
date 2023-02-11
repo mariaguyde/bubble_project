@@ -161,7 +161,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                             </div>
 
                             {methodePaiement === ' ' && (
-                                <div>Veuillez choisir votre moyen de paiement </div>
+                                <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
                             )}
 
 
