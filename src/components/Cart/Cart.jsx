@@ -15,7 +15,7 @@ export default function Cart({ cartProducts, setCartContent }) {
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
     // TODO Component Quantity Picker à mettre en place quand j'ai fini la page paiement (vu que cest prioritaire)
-
+    const tableNumber =  Math.floor(Math.random() * (20 - 1 + 1) + 1);
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
     const [methodePaiement, setMethodePaiement] = useState(' ');
@@ -77,7 +77,6 @@ export default function Cart({ cartProducts, setCartContent }) {
     }
 
     useEffect(() => {
-        //document.getElementById("containerPayment").style.visibility = "hidden";
         calculTotalCart();
     }, );
 
@@ -172,7 +171,7 @@ export default function Cart({ cartProducts, setCartContent }) {
 
 
                     <div style={{display: showPaymentpart}}>
-                        <Payment commandNumber = {commandNumber} cartContent={cartProducts} methodePaiement={methodePaiement} />
+                        <Payment commandNumber = {commandNumber} cartContent={cartProducts} numeroTable={tableNumber} methodePaiement={methodePaiement} />
                     </div>
                 </Modal>
             )}
