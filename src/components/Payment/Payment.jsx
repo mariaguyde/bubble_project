@@ -23,9 +23,9 @@ export default function Payment ({cartContent, methodePaiement}) {
                 formErrors[key] = true;
             }
             if (key == 'mail') {
-                //console.log(formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
-                //formErrors[key] = formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) === null;
-                if (formData.mail?.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) === null) {
+                let regexMail = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+                console.log(regexMail.test(formData.mail));
+                if (regexMail.test(formData.mail) === false) {
                     formErrors[key] = true;
                 }
             }
@@ -36,19 +36,19 @@ export default function Payment ({cartContent, methodePaiement}) {
             formData = {...formData, carteCredit_number : e.target["carteCredit_number"].value, carteCredit_expirationDate : e.target["carteCredit_expirationDate"].value, carteCredit_cvc : e.target["carteCredit_cvc"].value}
 
             let regexExpirationDate = new RegExp(/^((0[1-9])|(1[0-2]))[\/\.\-]*((0[8-9])|(1[1-9]))$/);
-            if (regexExpirationDate.test(formData.carteCredit_expirationDate) === false ) {
+            if (regexExpirationDate.test(formData.carteCredit_expirationDate) === false) {
                 formErrors['carteCredit_expirationDate'] = true;
             }
 
             // 5114496353984312
             let regexMasterCard = new RegExp(/^5[1-5][0-9]{14}|^(222[1-9]|22[3-9]\\d|2[3-6]\\d{2}|27[0-1]\\d|2720)[0-9]{12}$/);
             //console.log(regexMasterCard.test(formData.carteCredit_number));
-            if (regexMasterCard.test(formData.carteCredit_number) === false ) {
+            if (regexMasterCard.test(formData.carteCredit_number) === false) {
                 formErrors['carteCredit_number'] = true;
             }
 
             let regexCVC = new RegExp(/^[0-9]{3,4}$/);
-            if (regexCVC.test(formData.carteCredit_cvc) === false ) {
+            if (regexCVC.test(formData.carteCredit_cvc) === false) {
                 formErrors['carteCredit_cvc'] = true;
             }
         }
