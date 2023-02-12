@@ -16,9 +16,8 @@
     align-items: center;
 }
 
-#payment_infos div:nth-of-type(1) span {
-    margin-right: 13px;
-    font-size: 28px;
+i {
+    font-size: 28px !important;
 }
 
 

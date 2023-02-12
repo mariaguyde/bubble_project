@@ -15,9 +15,10 @@ export default function Cart({ cartProducts, setCartContent }) {
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
 
+
     const [showCart, setShowCart] = useState(false);
     const [showPaymentpart, setshowPaymentpart] = useState(false);
-    const [prixTotal, setPrixTotal] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [methodePaiement, setMethodePaiement] = useState(' ');
     const [errors, setErrors] = useState({});
 
@@ -54,7 +55,7 @@ export default function Cart({ cartProducts, setCartContent }) {
             product.productPersonalizedPrice = totalProduitPersonnalise + totalExtras;
             total += (product.quantity * product.productPersonalizedPrice);
         });
-        setPrixTotal(total);
+        setTotalPrice(total);
     }
 
     const changeCartState = (choosedproductIndex, operation) => {
@@ -101,89 +102,88 @@ export default function Cart({ cartProducts, setCartContent }) {
 
             {showCart && (
                 <Modal setShowModal={setShowCart}>
-                    {!showPaymentpart && (
-                        <div className={style["container"]}>
-                            <h1>Panier</h1>
-                            <form onSubmit={changeVisibility} className={style["panier_details"]}>
-                                <div id={style["panier_produitslist"]}>
-                                    {cartProducts.map((product, i) =>
-                                        <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
-                                            <div className={style["panier_nomProduit"]}>
-                                                <img src={product.image} alt="produit"/>
-                                                <div className={style['panier_produitDetails']}>
-                                                    <p>{product.name}</p>
-                                                    {product.options.unique.taille && (
-                                                        <p>{product.options.unique.taille[0][0]}</p>
-                                                    )}
-                                                    {product.options.unique["sauce piquante"] && (
-                                                        <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
-                                                    )}
-
-                                                    {product.options.multiple.extras && (
-                                                        <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
-                                                    )}
-
-                                                    <p>{product.productPersonalizedPrice * product.quantity} €</p>
-                                                </div>
-                                            </div>
-                                            <div className={style["panier_produitQuantite"]}>
-                                                <div onClick={() => {changeCartState(i, 'decrease');}}>
-                                                    -
-                                                </div>
-                                                <p>{product.quantity}</p>
-                                                <div onClick={() => {changeCartState(i, 'increase');}}>
-                                                    +
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                <hr/>
-                                <div className={style["panier_montantTotal"]}>
-                                    <div>
-                                        <p>Total</p>
-                                        <p>{prixTotal} €</p>
-                                    </div>
-                                </div>
-
-                                <div id={style["panier_paiement"]}>
-                                    <div className={style["panier_moyenPaiement"]}>
-                                        <input
-                                            type="radio"
-                                            name="paiement_moyen"
-                                            value="carte-debit"
-                                            id="carte-debit"
-                                            onChange={()=>{setMethodePaiement("carte-debit")}}
-                                        />
-                                        <img src={carteCredit} alt="carte de crédit"/>
-                                        <label htmlFor="carte-debit">Débit ou crédit</label>
-                                    </div>
-                                    <div className={style["panier_moyenPaiement"]}>
-                                        <input
-                                            type="radio"
-                                            name="paiement_moyen"
-                                            value="espece"
-                                            id="espece"
-                                            onChange={()=>{setMethodePaiement("espece")}}
-                                        />
-                                        <img src={especes} alt="carte de crédit"/>
-                                        <label htmlFor="espece" >En espèces</label>
-                                    </div>
-                                </div>
-
-                                {errors.paiement_moyen && (
-                                    <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
-                                )}
-
-                                <button type="submit" className={style["btn_commander"]}>Commander</button>
-                            </form>
-                        </div>
-                    )}
-
-
-                    {showPaymentpart && (
+                    {showPaymentpart ? (
                         <div>
-                            <Payment cartContent={cartProducts} methodePaiement={methodePaiement} />
+                            <Payment setShowPaymentComponent={setshowPaymentpart} cartContent={cartProducts} methodePaiement={methodePaiement} />
+                        </div>
+                    ) :
+                    (
+
+                        <div className={style["container"]}>
+                        <h1>Panier</h1>
+                        <form onSubmit={changeVisibility} className={style["panier_details"]}>
+                        <div id={style["panier_produitslist"]}>
+                        {cartProducts.map((product, i) =>
+                        <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
+                        <div className={style["panier_nomProduit"]}>
+                        <img src={product.image} alt="produit"/>
+                        <div className={style['panier_produitDetails']}>
+                        <p>{product.name}</p>
+                    {product.options.unique.taille && (
+                        <p>{product.options.unique.taille[0][0]}</p>
+                        )}
+                    {product.options.unique["sauce piquante"] && (
+                        <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
+                        )}
+
+                    {product.options.multiple.extras && (
+                        <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
+                        )}
+
+                        <p>{product.productPersonalizedPrice * product.quantity} €</p>
+                        </div>
+                        </div>
+                        <div className={style["panier_produitQuantite"]}>
+                        <div onClick={() => {changeCartState(i, 'decrease');}}>
+                        -
+                        </div>
+                        <p>{product.quantity}</p>
+                        <div onClick={() => {changeCartState(i, 'increase');}}>
+                        +
+                        </div>
+                        </div>
+                        </div>
+                        )}
+                        </div>
+                        <hr/>
+                        <div className={style["panier_montantTotal"]}>
+                        <div>
+                        <p>Total</p>
+                        <p>{totalPrice} €</p>
+                        </div>
+                        </div>
+
+                        <div id={style["panier_paiement"]}>
+                        <div className={style["panier_moyenPaiement"]}>
+                        <input
+                        type="radio"
+                        name="paiement_moyen"
+                        value="carte-debit"
+                        id="carte-debit"
+                        onChange={()=>{setMethodePaiement("carte-debit")}}
+                        />
+                        <img src={carteCredit} alt="carte de crédit"/>
+                        <label htmlFor="carte-debit">Débit ou crédit</label>
+                        </div>
+                        <div className={style["panier_moyenPaiement"]}>
+                        <input
+                        type="radio"
+                        name="paiement_moyen"
+                        value="espece"
+                        id="espece"
+                        onChange={()=>{setMethodePaiement("espece")}}
+                        />
+                        <img src={especes} alt="carte de crédit"/>
+                        <label htmlFor="espece" >En espèces</label>
+                        </div>
+                        </div>
+
+                    {errors.paiement_moyen && (
+                        <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
+                        )}
+
+                        <button type="submit" className={style["btn_commander"]}>Commander</button>
+                        </form>
                         </div>
                     )}
                 </Modal>

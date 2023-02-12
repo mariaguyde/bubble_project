@@ -2,12 +2,17 @@ import { useNavigate } from "react-router-dom";
 import style from './Payment.module.css';
 import React, {useState} from 'react';
 
-export default function Payment ({cartContent, methodePaiement}) {
+export default function Payment ({cartContent, methodePaiement, setShowPaymentComponent}) {
 
     const tableNumber =  Math.floor(Math.random() * (20 - 1 + 1) + 1);
     const commandNumber = Math.random().toString(36).substring(3,9).toUpperCase();
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+
+    const goBackPreviousPage = () => {
+        console.log('egege');
+        setShowPaymentComponent(false);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,8 +75,11 @@ export default function Payment ({cartContent, methodePaiement}) {
 
     return (
         <div id={style['payment_container']}>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />            <h1>Paiement</h1>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+            <div onClick={goBackPreviousPage}>
+                <i className="fa fa-arrow-left"></i>
+            </div>
+            <h1>Paiement</h1>
             <div id={style['payment_infos']}>
                 {/*<div>
                     <p>
