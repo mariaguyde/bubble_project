@@ -1,8 +1,46 @@
-#form div {
-   margin: 10px 0;
+#payment_container {
+    padding: 0 20%;
+}
+
+#payment_infos {
+    margin: 40px 0;
+}
+#payment_infos div:nth-of-type(1) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#payment_infos div:nth-of-type(1) p {
+    display: flex;
+    align-items: center;
+}
+
+#payment_infos div:nth-of-type(1) span {
+    margin-right: 13px;
+    font-size: 28px;
+}
+
+
+#payment_form div {
+    margin:15px 0;
     display: flex;
     font-size: 16px;
     flex-direction: column;
+}
+
+#payment_form {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+label {
+    text-align: center;
+}
+
+#payment_form input {
+    width: 100%;
+    margin: 9px auto;
 }
 
 button
@@ -21,3 +59,10 @@ button
     color: red;
     margin-bottom: 10px;
 }
+/*
+.close-icon {
+    width: fit-content;
+    margin: 50px auto 0;
+    cursor: pointer;
+}
+/**/

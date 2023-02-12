@@ -84,7 +84,8 @@ export default function Cart({ cartProducts, setCartContent }) {
         <>
             <div onClick={() => setShowCart(true)} className={style["cart-container"]}>
                 <div className={style["quantity-container"]}>
-                    {cartProducts.length}
+                    {cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue.quantity,0)}
+                    {}
                 </div>
                 <div className={style["cart-icon"]}>
                     <img src={CartIcon} alt="icône panier" />
@@ -99,21 +100,23 @@ export default function Cart({ cartProducts, setCartContent }) {
                             <div id={style["panier_produitslist"]}>
                                 {cartProducts.map((product, i) =>
                                     <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
-                                        <img src={product.image} alt="produit"/>
                                         <div className={style["panier_nomProduit"]}>
-                                            <p>{product.name}</p>
-                                            {product.options.unique.taille && (
-                                                <p>{product.options.unique.taille[0][0]}</p>
-                                            )}
-                                            {product.options.unique["sauce piquante"] && (
-                                                <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
-                                            )}
+                                                <img src={product.image} alt="produit"/>
+                                            <div className={style['panier_produitDetails']}>
+                                                <p>{product.name}</p>
+                                                {product.options.unique.taille && (
+                                                    <p>{product.options.unique.taille[0][0]}</p>
+                                                )}
+                                                {product.options.unique["sauce piquante"] && (
+                                                    <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
+                                                )}
 
-                                            {product.options.multiple.extras && (
-                                                <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
-                                            )}
+                                                {product.options.multiple.extras && (
+                                                    <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
+                                                )}
 
-                                            <p>{product.productPersonalizedPrice * product.quantity} €</p>
+                                                <p>{product.productPersonalizedPrice * product.quantity} €</p>
+                                            </div>
                                         </div>
                                         <div className={style["panier_produitQuantite"]}>
                                             <div onClick={() => {changeCartState(i, 'decrease');}}>

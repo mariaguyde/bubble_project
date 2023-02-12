@@ -118,8 +118,19 @@ h1 {
     font-weight: bold;
     font-size: 16px;
 }
+
+.panier_nomProduit {
+    width: 295px;
+}
+
 .panier_produit div {
     margin: 0 10px;
+    display: flex;
+}
+
+.panier_produitDetails {
+    flex-direction: column;
+    width: 355px;
 }
 .panier_produit, .panier_produitQuantite {
     display: flex;
@@ -151,6 +162,7 @@ h1 {
 
 #panier_paiement {
     margin: 45px 0 20px 0;
+    font-size: 16px;
 }
 
 .panier_montantTotal div {
@@ -199,6 +211,6 @@ h1 {
     cursor: pointer;
 }
 img {
-    width: 10%;
+    width: 25%;
     margin: 0 10px;
 }

@@ -59,22 +59,34 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
         }
         else {
             setErrors({});
-            // TODO Redirige vers le recap (facture) usenavigate devrait faire le taff
             navigate("/recapitulatif", {state: { cart: cartContent}});
         }
-
     }
 
     return (
-        <div>
-            <h1>Paiement</h1>
-            <div>
-                <p>N° de votre commande : {commandNumber}</p>
-                <p>N° de votre table : {numeroTable}</p>
-            </div>
-            <p>Veuillez renseigner les champs suivants afin de recevoir le récapitulatif de votre commande</p>
+        <div id={style['payment_container']}>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />            <h1>Paiement</h1>
+            <div id={style['payment_infos']}>
+                <div>
+                    <p>
+                        <span className="material-symbols-outlined">
+                         confirmation_number
+                        </span>
+                        N° de votre commande : {commandNumber}
+                    </p>
+                    <p>
+                        <span className="material-symbols-outlined">
+                         table_restaurant
+                        </span>
+                        N° de votre table : {numeroTable}</p>
+                </div>
+                {methodePaiement === 'carte-debit' && (<p>Veuillez renseigner les champs suivants afin de recevoir le récapitulatif de votre commande</p>)}
+                {methodePaiement === 'espece' && (<p>Après avoir renseigné les champs suivants, merci de vous rendre au comptoir pour pouvoir payer votre commande. Vous recevrez suite à cela un mail avec votre récapitulatif de votre commande.</p>) }
 
-            <form onSubmit={handleSubmit} id={style["form"]}>
+            </div>
+
+            <form onSubmit={handleSubmit} id={style["payment_form"]}>
                 <div>
                     <label>Votre nom</label>
                     <input type="text"  name="nom" />
@@ -97,7 +109,6 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                     </div>)}
                 </div>
 
-                {methodePaiement === 'espece' && (<p>Veuillez vous rendre au comptoir pour pouvoir payer votre commande.</p>) }
                 {methodePaiement === 'carte-debit' && (
                     <div>
                         <div>
