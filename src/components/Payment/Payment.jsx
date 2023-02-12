@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom";
 import style from './Payment.module.css';
 import React, {useState} from 'react';
 
-export default function Payment ({cartContent, methodePaiement,commandNumber, numeroTable}) {
+export default function Payment ({cartContent, methodePaiement}) {
 
+    const tableNumber =  Math.floor(Math.random() * (20 - 1 + 1) + 1);
+    const commandNumber = Math.random().toString(36).substring(3,9).toUpperCase();
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
 
@@ -59,7 +61,11 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
         }
         else {
             setErrors({});
-            navigate("/recapitulatif", {state: { cart: cartContent}});
+            navigate("/recapitulatif", {state: {
+                cart: cartContent,
+                orderNumber: commandNumber,
+                tableNumber: tableNumber,
+            }});
         }
     }
 
@@ -68,7 +74,7 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />            <h1>Paiement</h1>
             <div id={style['payment_infos']}>
-                <div>
+                {/*<div>
                     <p>
                         <span className="material-symbols-outlined">
                          confirmation_number
@@ -80,7 +86,7 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                          table_restaurant
                         </span>
                         N° de votre table : {numeroTable}</p>
-                </div>
+                </div>*/}
                 {methodePaiement === 'carte-debit' && (<p>Veuillez renseigner les champs suivants afin de recevoir le récapitulatif de votre commande</p>)}
                 {methodePaiement === 'espece' && (<p>Après avoir renseigné les champs suivants, merci de vous rendre au comptoir pour pouvoir payer votre commande. Vous recevrez suite à cela un mail avec votre récapitulatif de votre commande.</p>) }
 

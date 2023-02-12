@@ -15,13 +15,11 @@ export default function Cart({ cartProducts, setCartContent }) {
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
 
-    const tableNumber =  Math.floor(Math.random() * (20 - 1 + 1) + 1);
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
     const [methodePaiement, setMethodePaiement] = useState(' ');
     const [showPaymentpart, setshowPaymentpart] = useState('none');
     const [showCartDetails, setShowCartDetails] = useState('block');
-    const [commandNumber, setCommandNumber] = useState('block');
     const [errors, setErrors] = useState({});
 
     const changeVisibility = (e) => {
@@ -37,7 +35,6 @@ export default function Cart({ cartProducts, setCartContent }) {
             setErrors(formErrors);
         }
         else {
-            setCommandNumber(Math.random().toString(36).substring(3,9).toUpperCase());
             setShowCartDetails("none");
             setshowPaymentpart("block");
         }
@@ -186,7 +183,7 @@ export default function Cart({ cartProducts, setCartContent }) {
 
 
                     <div style={{display: showPaymentpart}}>
-                        <Payment commandNumber = {commandNumber} cartContent={cartProducts} numeroTable={tableNumber} methodePaiement={methodePaiement} />
+                        <Payment cartContent={cartProducts} methodePaiement={methodePaiement} />
                     </div>
                 </Modal>
             )}
