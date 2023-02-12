@@ -11,13 +11,12 @@ export default function Payment ({cartContent, methodePaiement}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formErrors = {};
         let formData = {
             nom: e.target["nom"].value.trim(),
             prenom: e.target["prenom"].value.trim(),
             mail: e.target["email"].value.trim(),
         }
-
-        const formErrors = {};
 
         Object.keys(formData).forEach(key => {
             if(formData[key] === "") {
