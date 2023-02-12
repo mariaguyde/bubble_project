@@ -99,13 +99,9 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                 </div>
                 <div>
                     <label>Votre adresse mail</label>
-                    <input type="email" name="email"  />
+                    <input type="email" name="email" placeholder={'votreprenom@exemple.com'} />
                     {errors.mail && (<div className={style['error_message']}>
-                        <p>Veuillez renseignez votre addresse mail</p>
-                        <p>
-                            Votre adresse mail doit respecter le format suivant : <br/>
-                            votreprenom@exemple.com
-                        </p>
+                        <p>Veuillez renseignez votre addresse mail en respectant le format demandé</p>
                     </div>)}
                 </div>
 
@@ -113,37 +109,24 @@ export default function Payment ({cartContent, methodePaiement,commandNumber, nu
                     <div>
                         <div>
                             <label>Votre numéro de carte de crédit</label>
-                            <input name="carteCredit_number"/>
+                            <input name="carteCredit_number" placeholder={'5xxx xxxx xxxx xxxx'} />
                             {errors.carteCredit_number && (<div className={style['error_message']}>
-                                <p>Veuillez renseignez votre numéro de carte de crédit</p>
-                                <p>
-                                    Votre numéro de carte de crédit doit respecter le format suivant : <br/>
-                                    5xxx xxxx xxxx xxxx
-                                </p>
+                                <p>Veuillez renseignez votre numéro de carte de crédit en respectant le format demandé</p>
                             </div>)}
                         </div>
                         <div>
                             <label>CVC</label>
-                            <input type="text"  name="carteCredit_cvc"/>
+                            <input type="text" placeholder={"XXX (ex:512)"} name="carteCredit_cvc"/>
                             {errors.carteCredit_cvc && (<div className={style['error_message']}>
-                                <p>Veuillez renseignez le code CVC de votre carte</p>
-                                <p>
-                                    Le code CVC de votre carte de crédit doit respecter le format suivant:
-                                    XXX (ex:512)<br/>
-                                    Il est composé de 3 chiffres habituellement.
-                                </p>
+                                <p>Veuillez renseignez le code CVC de votre carte en respectant le format demandé</p>
                             </div>)}
                         </div>
                         <div>
                             <label>Date d'expiration de votre carte</label>
-                            <input type="text" name="carteCredit_expirationDate"/>
+                            <input type="text" placeholder={'MM/AA (ex:01/08)'} name="carteCredit_expirationDate"/>
                         </div>
                         {errors.carteCredit_expirationDate && (<div className={style['error_message']}>
-                            <p>Veuillez renseignez la date d'expiration de votre carte</p>
-                            <p>
-                                La date d'expiration de votre carte doit respecter le format suivant : <br/>
-                                MM/AA (ex:01/08)
-                            </p>
+                            <p>Veuillez renseignez la date d'expiration de votre carte en respectant le format demandé</p>
                         </div>)}
                     </div>
                 ) }

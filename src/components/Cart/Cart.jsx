@@ -14,7 +14,7 @@ export default function Cart({ cartProducts, setCartContent }) {
     // Calcul du total
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
-    // TODO Component Quantity Picker à mettre en place quand j'ai fini la page paiement (vu que cest prioritaire)
+
     const tableNumber =  Math.floor(Math.random() * (20 - 1 + 1) + 1);
     const [showCart, setShowCart] = useState(false);
     const [prixTotal, setPrixTotal] = useState(0);
@@ -22,9 +22,21 @@ export default function Cart({ cartProducts, setCartContent }) {
     const [showPaymentpart, setshowPaymentpart] = useState('none');
     const [showCartDetails, setShowCartDetails] = useState('block');
     const [commandNumber, setCommandNumber] = useState('block');
+    const [errors, setErrors] = useState({});
 
-    const changeVisibility = () => {
-        if (methodePaiement !== ' ') {
+    const changeVisibility = (e) => {
+        e.preventDefault();
+        let formData = {
+            paiement_moyen: e.target["paiement_moyen"].value.trim(),
+        }
+        const formErrors = {};
+        if(formData['paiement_moyen'] === '') {
+            formErrors['paiement_moyen'] = true;
+        }
+        if(Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+        }
+        else {
             setCommandNumber(Math.random().toString(36).substring(3,9).toUpperCase());
             setShowCartDetails("none");
             setshowPaymentpart("block");
@@ -96,7 +108,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                     {/* code here to display all products contained in cart */}
                     <div className={style["container"]} style={{display: showCartDetails}}>
                         <h1>Panier</h1>
-                        <div className={style["panier_details"]}>
+                        <form onSubmit={changeVisibility} className={style["panier_details"]}>
                             <div id={style["panier_produitslist"]}>
                                 {cartProducts.map((product, i) =>
                                     <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
@@ -163,13 +175,13 @@ export default function Cart({ cartProducts, setCartContent }) {
                                 </div>
                             </div>
 
-                            {methodePaiement === ' ' && (
+                            {errors.paiement_moyen && (
                                 <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
                             )}
 
 
-                            <button onClick={changeVisibility} className={style["btn_commander"]}>Commander</button>
-                        </div>
+                            <button type="submit" className={style["btn_commander"]}>Commander</button>
+                        </form>
                     </div>
 
 
