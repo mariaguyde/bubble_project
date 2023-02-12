@@ -6,7 +6,7 @@ import especes from "../../assets/img/money.png";
 import carteCredit from "../../assets/img/credit-card.svg";
 import Payment from "../Payment/Payment";
 
-export default function Cart({ cartProducts, setCartContent }) {
+export default function Cart({cartProducts, setCartContent}) {
 
     // intégration de la maquette
     // TODO Mise en page des données
@@ -86,6 +86,22 @@ export default function Cart({ cartProducts, setCartContent }) {
         calculTotalCart();
     }
 
+    const deleteExtra = (productId, extraName) => {
+        let newExtralist = [];
+        const newCartContent = cartProducts.map((product,i) => {
+            if(i === productId){
+                product.options.multiple.extras.map(extra => {
+                    if(extra[0] !== extraName) {
+                        newExtralist.push(extra);
+                    }
+                });
+                product.options.multiple.extras = newExtralist;
+            }
+            return product;
+        });
+        setCartContent(newCartContent);
+    }
+
     useEffect(() => {
         calculTotalCart();
     }, );
@@ -109,82 +125,86 @@ export default function Cart({ cartProducts, setCartContent }) {
                         </div>
                     ) :
                     (
-
                         <div className={style["container"]}>
-                        <h1>Panier</h1>
-                        <form onSubmit={changeVisibility} className={style["panier_details"]}>
-                        <div id={style["panier_produitslist"]}>
-                        {cartProducts.map((product, i) =>
-                        <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
-                        <div className={style["panier_nomProduit"]}>
-                        <img src={product.image} alt="produit"/>
-                        <div className={style['panier_produitDetails']}>
-                        <p>{product.name}</p>
-                    {product.options.unique.taille && (
-                        <p>{product.options.unique.taille[0][0]}</p>
-                        )}
-                    {product.options.unique["sauce piquante"] && (
-                        <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
-                        )}
+                                <h1>Panier</h1>
+                                <form onSubmit={changeVisibility} className={style["panier_details"]}>
+                                        <div id={style["panier_produitslist"]}>
+                                            {cartProducts.map((product, i) =>
+                                                <div id={product.id} key={'product_'+i} className={style["panier_produit"]}>
+                                                    <div className={style["panier_nomProduit"]}>
+                                                        <img src={product.image} alt="produit"/>
+                                                        <div className={style['panier_produitDetails']}>
+                                                            <p>{product.name}</p>
+                                                            {product.options.unique.taille && (
+                                                                 <p>{product.options.unique.taille[0][0]}</p>
+                                                            )}
+                                                            {product.options.unique["sauce piquante"] && (
+                                                                <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
+                                                            )}
 
-                    {product.options.multiple.extras && (
-                        <p> Extra(s) :  {product.options.multiple.extras.map(extra => extra[0] + " ")} </p>
-                        )}
+                                                            {product.options.multiple.extras && (
+                                                                <div className={style['panier_produitExtras']}>
+                                                                    <div >
+                                                                        {product.options.multiple.extras.map((extra,j) =>
+                                                                            <div key={'extra_'+j} className={style['panier_produitSingleExtra']}>
+                                                                                <button onClick={() => deleteExtra(i,extra[0] )}>-</button>
+                                                                                <p>Extra {extra[0]}</p>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            <p>{product.productPersonalizedPrice * product.quantity} €</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className={style["panier_produitQuantite"]}>
+                                                            <div onClick={() => {changeCartState(i, 'decrease');}}>
+                                                                -
+                                                            </div>
+                                                            <p>{product.quantity}</p>
+                                                            <div onClick={() => {changeCartState(i, 'increase');}}>
+                                                            +
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <hr/>
 
-                        <p>{product.productPersonalizedPrice * product.quantity} €</p>
-                        </div>
-                        </div>
-                        <div className={style["panier_produitQuantite"]}>
-                        <div onClick={() => {changeCartState(i, 'decrease');}}>
-                        -
-                        </div>
-                        <p>{product.quantity}</p>
-                        <div onClick={() => {changeCartState(i, 'increase');}}>
-                        +
-                        </div>
-                        </div>
-                        </div>
-                        )}
-                        </div>
-                        <hr/>
-                        <div className={style["panier_montantTotal"]}>
-                        <div>
-                        <p>Total</p>
-                        <p>{totalPrice} €</p>
-                        </div>
-                        </div>
+                                        <div className={style["panier_montantTotal"]}>
+                                            <div>
+                                                <p>Total</p>
+                                                <p>{totalPrice} €</p>
+                                            </div>
+                                        </div>
 
-                        <div id={style["panier_paiement"]}>
-                        <div className={style["panier_moyenPaiement"]}>
-                        <input
-                        type="radio"
-                        name="paiement_moyen"
-                        value="carte-debit"
-                        id="carte-debit"
-                        onChange={()=>{setMethodePaiement("carte-debit")}}
-                        />
-                        <img src={carteCredit} alt="carte de crédit"/>
-                        <label htmlFor="carte-debit">Débit ou crédit</label>
-                        </div>
-                        <div className={style["panier_moyenPaiement"]}>
-                        <input
-                        type="radio"
-                        name="paiement_moyen"
-                        value="espece"
-                        id="espece"
-                        onChange={()=>{setMethodePaiement("espece")}}
-                        />
-                        <img src={especes} alt="carte de crédit"/>
-                        <label htmlFor="espece" >En espèces</label>
-                        </div>
-                        </div>
+                                        <div id={style["panier_paiement"]}>
+                                            <div className={style["panier_moyenPaiement"]}>
+                                                <input
+                                                    type="radio" name="paiement_moyen"
+                                                    value="carte-debit" id="carte-debit"
+                                                    onChange={()=>{setMethodePaiement("carte-debit")}}
+                                                />
+                                                <img src={carteCredit} alt="carte de crédit"/>
+                                                <label htmlFor="carte-debit">Débit ou crédit</label>
+                                            </div>
 
-                    {errors.paiement_moyen && (
-                        <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
-                        )}
+                                            <div className={style["panier_moyenPaiement"]}>
+                                                <input
+                                                    type="radio" name="paiement_moyen"
+                                                    value="espece" id="espece"
+                                                    onChange={()=>{setMethodePaiement("espece")}}
+                                                />
+                                                <img src={especes} alt="carte de crédit"/>
+                                                <label htmlFor="espece" >En espèces</label>
+                                            </div>
+                                        </div>
 
-                        <button type="submit" className={style["btn_commander"]}>Commander</button>
-                        </form>
+                                        {errors.paiement_moyen && (
+                                            <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
+                                        )}
+                                        <button type="submit" className={style["btn_commander"]}>Commander</button>
+                                </form>
                         </div>
                     )}
                 </Modal>

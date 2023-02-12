@@ -42,7 +42,7 @@ label {
     margin: 9px auto;
 }
 
-button
+.btn_commander
 {
     background-color: var(--orange);
     border: none;
@@ -58,10 +58,3 @@ button
     color: red;
     margin-bottom: 10px;
 }
-/*
-.close-icon {
-    width: fit-content;
-    margin: 50px auto 0;
-    cursor: pointer;
-}
-/**/

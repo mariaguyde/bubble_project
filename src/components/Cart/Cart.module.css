@@ -173,26 +173,49 @@ h1 {
     justify-content: space-around;
 }
 
-
 .panier_paiement {
-    /*
-    display: flex;
-    justify-content: center;
-    /**/
     display: flex;
     text-align: center;
 }
 .panier_moyenPaiement {
-    /*
-    display: flex;
-    align-items: center;
-    /**/
     width: 50%;
     display: flex;
     align-items: center;
 }
 .panier_paiement input {
     margin-right: 10px;
+}
+
+.panier_produitExtras {
+    margin: 10px 0 !important;
+}
+
+.panier_produitExtras div {
+    flex-direction: column;
+}
+
+.panier_produitExtras > div:nth-of-type(1) {
+    flex-direction: column;
+    margin: 0;
+}
+
+.panier_produitExtras div button {
+    background-color: white;
+    margin-right: 10px;
+    border: solid 0.9px;
+    border-radius: 20px;
+    font-size: 13px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.panier_produitSingleExtra {
+    flex-direction: row!important;
+    margin: 0!important;
 }
 
 .error_message {

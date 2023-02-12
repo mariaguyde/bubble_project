@@ -143,7 +143,7 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
                         </div>)}
                     </div>
                 ) }
-                <button type="submit">Valider</button>
+                <button className={style["btn_commander"]} type="submit">Valider</button>
             </form>
         </div>
     )
