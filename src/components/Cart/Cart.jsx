@@ -14,7 +14,8 @@ export default function Cart({ cartProducts, setCartContent }) {
     // Calcul du total
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
-
+    // TODO GÉRER L'AFFICHAGE DES PRODUITS EN FONCTION DE CE QU'ALINE M'ENVOIE (calcul du total + acces au produit)
+    // TODO BOUTON MOINS -> SUPPRIMER EXTRAS -> UPDATE TOTAL
 
     const [showCart, setShowCart] = useState(false);
     const [showPaymentpart, setshowPaymentpart] = useState(false);
