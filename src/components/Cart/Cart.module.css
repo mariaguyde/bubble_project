@@ -132,18 +132,18 @@ h1 {
     flex-direction: column;
     width: 355px;
 }
-.panier_produit, .panier_produitQuantite {
+.panier_produit, .panier_produitQuantity {
     display: flex;
 }
-.panier_produitQuantite {
+.panier_produitQuantity {
     display: flex;
     font-weight: bold;
     align-items: center;
 }
-.panier_produitQuantite p {
+.panier_produitQuantity p {
     margin: 0 10px;
 }
-.panier_produitQuantite div {
+.panier_produitQuantity div {
     border: solid 0.9px;
     border-radius: 20px;
     font-size: 13px;
@@ -156,33 +156,33 @@ h1 {
 }
 
 
-.panier_montantTotal, #panier_produitslist {
+.panier_totalPrice, #panier_produitslist {
     margin: 45px 0;
 }
 
-#panier_paiement {
+#panier_payment {
     margin: 45px 0 20px 0;
     display: flex;
     font-size: 16px;
 }
 
-.panier_montantTotal div {
+.panier_totalPrice div {
     display: flex;
     margin: 8px 0;
     font-weight: bold;
     justify-content: space-around;
 }
 
-.panier_paiement {
+.panier_payment {
     display: flex;
     text-align: center;
 }
-.panier_moyenPaiement {
+.panier_meanPayment {
     width: 50%;
     display: flex;
     align-items: center;
 }
-.panier_paiement input {
+.panier_payment input {
     margin-right: 10px;
 }
 
@@ -225,7 +225,7 @@ h1 {
 }
 
 
-.btn_commander {
+.btn_order {
     background-color: var(--orange);
     border: none;
     border-radius: 10px;
@@ -234,7 +234,7 @@ h1 {
     color: white;
     cursor: pointer;
 }
-.panier_produit img, .panier_moyenPaiement img  {
+.panier_produit img, .panier_meanPayment img  {
     width: 25%;
     margin: 0 10px;
 }

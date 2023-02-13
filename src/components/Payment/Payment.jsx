@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import style from './Payment.module.css';
 import React, {useState} from 'react';
 
-export default function Payment ({cartContent, methodePaiement, setShowPaymentComponent}) {
+export default function Payment ({cartContent, methodePayment, setShowPaymentComponent}) {
 
     const tableNumber =  Math.floor(Math.random() * (20 - 1 + 1) + 1);
     const commandNumber = Math.random().toString(36).substring(3,9).toUpperCase();
@@ -10,7 +10,6 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
     const [errors, setErrors] = useState({});
 
     const goBackPreviousPage = () => {
-        console.log('egege');
         setShowPaymentComponent(false);
     }
 
@@ -27,16 +26,15 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
             if(formData[key] === "") {
                 formErrors[key] = true;
             }
-            if (key == 'mail') {
+            if (key === 'mail') {
                 let regexMail = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-                console.log(regexMail.test(formData.mail));
                 if (regexMail.test(formData.mail) === false) {
                     formErrors[key] = true;
                 }
             }
         });
 
-        if (methodePaiement === "carte-debit") {
+        if (methodePayment === "carte-debit") {
             // récupération des valeurs + gestion des erreurs des 3 autre champs
             formData = {...formData, carteCredit_number : e.target["carteCredit_number"].value, carteCredit_expirationDate : e.target["carteCredit_expirationDate"].value, carteCredit_cvc : e.target["carteCredit_cvc"].value}
 
@@ -58,8 +56,8 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
             }
         }
 
-        console.log("DONNEES DU FORM", formData);
-        console.log("ERREURS DU FORM", formErrors);
+        //console.log("DONNEES DU FORM", formData);
+        //console.log("ERREURS DU FORM", formErrors);
         if(Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
         }
@@ -81,21 +79,9 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
             </div>
             <h1>Paiement</h1>
             <div id={style['payment_infos']}>
-                {/*<div>
-                    <p>
-                        <span className="material-symbols-outlined">
-                         confirmation_number
-                        </span>
-                        N° de votre commande : {commandNumber}
-                    </p>
-                    <p>
-                        <span className="material-symbols-outlined">
-                         table_restaurant
-                        </span>
-                        N° de votre table : {numeroTable}</p>
-                </div>*/}
-                {methodePaiement === 'carte-debit' && (<p>Veuillez renseigner les champs suivants afin de recevoir le récapitulatif de votre commande</p>)}
-                {methodePaiement === 'espece' && (<p>Après avoir renseigné les champs suivants, merci de vous rendre au comptoir pour pouvoir payer votre commande. Vous recevrez suite à cela un mail avec votre récapitulatif de votre commande.</p>) }
+
+                {methodePayment === 'carte-debit' && (<p>Veuillez renseigner les champs suivants afin de recevoir le récapitulatif de votre commande</p>)}
+                {methodePayment === 'espece' && (<p>Après avoir renseigné les champs suivants, merci de vous rendre au comptoir pour pouvoir payer votre commande. Vous recevrez suite à cela un mail avec votre récapitulatif de votre commande.</p>) }
 
             </div>
 
@@ -108,7 +94,7 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
                 <div>
                     <label>Votre prénom</label>
                     <input type="text"  name="prenom" />
-                    {errors.prenom   && (<div className={style['error_message']}>Veuillez renseignez votre prénom</div>)}
+                    {errors.prenom && (<div className={style['error_message']}>Veuillez renseignez votre prénom</div>)}
                 </div>
                 <div>
                     <label>Votre adresse mail</label>
@@ -118,7 +104,7 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
                     </div>)}
                 </div>
 
-                {methodePaiement === 'carte-debit' && (
+                {methodePayment === 'carte-debit' && (
                     <div>
                         <div>
                             <label>Votre numéro de carte de crédit</label>
@@ -143,7 +129,7 @@ export default function Payment ({cartContent, methodePaiement, setShowPaymentCo
                         </div>)}
                     </div>
                 ) }
-                <button className={style["btn_commander"]} type="submit">Valider</button>
+                <button className={style["btn_order"]} type="submit">Valider</button>
             </form>
         </div>
     )
