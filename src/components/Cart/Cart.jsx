@@ -1,10 +1,10 @@
-import style from './Cart.module.css';
-import CartIcon from "../../assets/img/basket.png";
-import Modal from '../Modal/Modal';
-import React, {useEffect, useState} from 'react';
-import especes from "../../assets/img/money.png";
 import carteCredit from "../../assets/img/credit-card.svg";
+import CartIcon from "../../assets/img/basket.png";
+import especes from "../../assets/img/money.png";
+import React, {useEffect, useState} from 'react';
 import Payment from "../Payment/Payment";
+import Modal from '../Modal/Modal';
+import style from './Cart.module.css';
 
 export default function Cart({cartProducts, setCartContent}) {
 
@@ -17,10 +17,10 @@ export default function Cart({cartProducts, setCartContent}) {
     // TODO GÉRER L'AFFICHAGE DES PRODUITS EN FONCTION DE CE QU'ALINE M'ENVOIE (calcul du total + acces au produit)
     // Bouton Supprimer Extras
 
-    const [showCart, setShowCart] = useState(false);
     const [showPaymentpart, setshowPaymentpart] = useState(false);
-    const [totalPrice, setTotalPrice] = useState(0);
     const [methodePayment, setMethodePayment] = useState(' ');
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [showCart, setShowCart] = useState(false);
     const [errors, setErrors] = useState({});
 
     const changeVisibility = (e) => {
@@ -41,21 +41,15 @@ export default function Cart({cartProducts, setCartContent}) {
     }
 
     const calculTotalCart = () => {
-        console.log('calcul cart content');
+        //console.log('calcul cart content');
         let total = 0;
         cartProducts.map((product) => {
             let totalProduitPersonalized = 0;
-
-            if (product.options.unique.taille) {
-                totalProduitPersonalized += product.options.unique.taille[0][1];
-            }
-            else {
-                totalProduitPersonalized += product.prix;
-            }
+            totalProduitPersonalized += product.prix;
             let totalExtras = 0;
-            product.options.multiple.extras.map(extra => totalExtras += extra[1]);
+            product['prix des extras'].map(extra => totalExtras += extra.prix);
             product.productPersonalizedPrice = totalProduitPersonalized + totalExtras;
-            total += (product.quantity * product.productPersonalizedPrice);
+            total += (product['quantité'] * product.productPersonalizedPrice);
         });
         setTotalPrice(total);
     }
@@ -65,15 +59,15 @@ export default function Cart({cartProducts, setCartContent}) {
         const newCartContent = cartProducts.map((product,i) => {
             if(i === choosedproductIndex){
                 if (operation === 'decrease' ) {
-                    if (product.quantity > 1) {
-                        return  {...product, quantity: product.quantity - 1 };
+                    if (product['quantité'] > 1) {
+                        return  {...product, 'quantité': product['quantité'] - 1 };
                     }
                     else {
                         dubstbin = i;
                     }
                 }
                 else {
-                    return  {...product, quantity: product.quantity + 1 }
+                    return  {...product, 'quantité': product['quantité'] + 1 }
                 }
             }
             return  {...product};
@@ -89,14 +83,26 @@ export default function Cart({cartProducts, setCartContent}) {
 
     const deleteExtra = (productId, extraName) => {
         let newExtralist = [];
+        let newExtraPricelist = [];
         const newCartContent = cartProducts.map((product,i) => {
             if(i === productId){
-                product.options.multiple.extras.map(extra => {
-                    if(extra[0] !== extraName) {
+
+                product['prix des extras'].map(extra => {
+                    if(extra.nom !== extraName) {
+                        newExtraPricelist.push(extra);
+                    }
+                });
+                //*/
+
+                product.options.extras.map(extra => {
+                    if(extra !== extraName) {
                         newExtralist.push(extra);
                     }
                 });
-                product.options.multiple.extras = newExtralist;
+
+                product['prix des extras'] = newExtraPricelist;
+                product.options.extras = newExtralist;
+                //**/
             }
             return product;
         });
@@ -113,7 +119,7 @@ export default function Cart({cartProducts, setCartContent}) {
         <>
             <div onClick={() => setShowCart(true)} className={style["cart-container"]}>
                 <div className={style["quantity-container"]}>
-                    {cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue.quantity,0)}
+                    {cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue['quantité'],0)}
                 </div>
                 <div className={style["cart-icon"]}>
                     <img src={CartIcon} alt="icône panier" />
@@ -137,34 +143,34 @@ export default function Cart({cartProducts, setCartContent}) {
                                                     <div className={style["panier_nomProduit"]}>
                                                         <img src={product.image} alt="produit"/>
                                                         <div className={style['panier_produitDetails']}>
-                                                            <p>{product.name}</p>
-                                                            {product.options.unique.taille && (
-                                                                 <p>{product.options.unique.taille[0][0]}</p>
+                                                            <p>{product.nom}</p>
+                                                            {product.options.taille && (
+                                                                 <p>{product.options.taille}</p>
                                                             )}
-                                                            {product.options.unique["sauce piquante"] && (
-                                                                <p>{product.options.unique["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
+                                                            {product.options["sauce piquante"] && (
+                                                                <p>{product.options["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
                                                             )}
 
-                                                            {product.options.multiple.extras && (
+                                                            {product.options.extras && (
                                                                 <div className={style['panier_produitExtras']}>
-                                                                    <div >
-                                                                        {product.options.multiple.extras.map((extra,j) =>
+                                                                    <div>
+                                                                        {product.options.extras.map((extra,j) =>
                                                                             <div key={'extra_'+j} className={style['panier_produitSingleExtra']}>
-                                                                                <button onClick={() => deleteExtra(i,extra[0])}>-</button>
-                                                                                <p>Extra {extra[0]}</p>
+                                                                                <button onClick={() => deleteExtra(i,extra)}>-</button>
+                                                                                <p>Extra {extra}</p>
                                                                             </div>
                                                                         )}
                                                                     </div>
                                                                 </div>
                                                             )}
-                                                            <p>{product.productPersonalizedPrice * product.quantity} €</p>
+                                                            <p>{product.productPersonalizedPrice * product['quantité']} €</p>
                                                         </div>
                                                     </div>
                                                     <div className={style["panier_produitQuantity"]}>
                                                             <div onClick={() => {changeCartState(i, 'decrease');}}>
                                                                 -
                                                             </div>
-                                                            <p>{product.quantity}</p>
+                                                            <p>{product['quantité']}</p>
                                                             <div onClick={() => {changeCartState(i, 'increase');}}>
                                                             +
                                                             </div>

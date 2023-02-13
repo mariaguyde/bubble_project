@@ -16,85 +16,47 @@ export default function Menu() {
     const [cartContent,setCartContent ] = useState(
     [
         {
-            id:2,
-            name:'Bubble Tea Fraise',
-            image: require("../../assets/img/coco-bubble-gaga.jpg"),
-            quantity:1,
+            description:'Il rend complètement gaga!',
+            "disponibilité":true,
+            id:23204204, // random
+            image: "/bubble_project/static/media/coco-bubble-gaga.jpg",
+            nom:'Bubble Tea Mangue',
             options: {
-                multiple: {
-                    extras: [
-                        ["Litchi", 2],
-                        ["Sucre", 2],
-                    ],
-                },
-                unique: {
-                    bulles: ["Litchi"],
-                    "taux de sucre": ["Faible"],
-                    thé: ["Vert"],
-                    température: ["Froid"],
-                    taille: [
-                        ["Petit", 5],
-                    ],
-                }
-            }
+               bulles : ['Tapioca'],
+               extras : ['Tapioca', 'Litchi', 'Mangue'],
+               taille : ['Moyen'],
+               'taux de sucre' : ['Faible'],
+               'température' : ['Froid'],
+               'thé' : ['Vert'],
+            },
+            prix: 9,
+            "prix des extras": [
+                {nom:'Tapioca', prix:1},
+                {nom:'Litchi', prix:1},
+                {nom:'Mangue', prix:1},
+            ],
+            'quantité':1,
+            type:"Fruits"
         },
         {
-            id:3,
-            type: "Boeuf",
-            name:'Wrap Boeuf',
-            image: require("../../assets/img/banh_mi_boeuf.jpg"),
-            prix:4,
-            quantity:2,
+            description:'Healthy and yummy !',
+            "disponibilité":true,
+            id:2320423242, // random
+            image: "/bubble_project/static/media/banh_mi_vege.jpg",
+            nom:'Banh Mi Végé',
             options: {
-                multiple: {
-                    legumes : ['Concombre', 'Carotte', "Oignon rouge"],
-                    extras: [
-                        ["Carotte", 2],
-                        ["Concombre", 2],
-                    ],
-                },
-                unique: {
-                    "sauce piquante": ["Oui"],
-                }
+                extras : ['Sauce piquante'],
+                'légumes' : ['Cocombre', 'Carotte', 'Coriandre'],
+                'sauce piquante' : ['Oui'],
+                'source de protéines' : ['Tofu'],
             },
-        },
-        {
-            id:3,
-            type: "Boeuf",
-            name:'Wrap Boeuf',
-            image: require("../../assets/img/banh_mi_boeuf.jpg"),
-            prix:4,
-            quantity:1,
-            options: {
-                multiple: {
-                    legumes : ['Concombre', 'Carotte', "Oignon rouge"],
-                    extras: [
-                        ["Carotte", 2],
-                    ],
-                },
-                unique: {
-                    "sauce piquante": ["Non"],
-                }
-            },
-        },
-        {
-            id:4,
-            type: "Poulet",
-            name:'Banh Mi Poulet',
-            image: require("../../assets/img/banh_mi_boeuf.jpg"),
-            prix:4,
-            quantity:1,
-            options: {
-                multiple: {
-                    légumes: ["Concombre", "Carotte", "Coriandre"],
-                    extras: [
-                        ["Concombre", 2],
-                    ],
-                },
-                unique: {
-                    "sauce piquante": ["Oui"],
-                }
-            },
+            prix: 4.5,
+            "prix des extras": [
+                {nom:'Sauce piquante', prix:1},
+            ],
+            'quantité':2,
+            'régime':['Vegan'],
+            type:"Végé"
         }
     ]);
 
