@@ -15,7 +15,7 @@ export default function Cart({cartProducts, setCartContent}) {
     // Gestion des quantités des produits
     // Mettre les options comme dans la data et les afficher avec cette structure
     // TODO GÉRER L'AFFICHAGE DES PRODUITS EN FONCTION DE CE QU'ALINE M'ENVOIE (calcul du total + acces au produit)
-    // TODO BOUTON MOINS -> SUPPRIMER EXTRAS -> UPDATE TOTAL
+    // Bouton Supprimer Extras
 
     const [showCart, setShowCart] = useState(false);
     const [showPaymentpart, setshowPaymentpart] = useState(false);
@@ -41,6 +41,7 @@ export default function Cart({cartProducts, setCartContent}) {
     }
 
     const calculTotalCart = () => {
+        console.log('calcul cart content');
         let total = 0;
         cartProducts.map((product) => {
             let totalProduitPersonnalise = 0;
@@ -100,11 +101,13 @@ export default function Cart({cartProducts, setCartContent}) {
             return product;
         });
         setCartContent(newCartContent);
+        //calculTotalCart();
     }
 
     useEffect(() => {
         calculTotalCart();
     }, );
+
 
     return (
         <>
@@ -147,7 +150,7 @@ export default function Cart({cartProducts, setCartContent}) {
                                                                     <div >
                                                                         {product.options.multiple.extras.map((extra,j) =>
                                                                             <div key={'extra_'+j} className={style['panier_produitSingleExtra']}>
-                                                                                <button onClick={() => deleteExtra(i,extra[0] )}>-</button>
+                                                                                <button onClick={() => deleteExtra(i,extra[0])}>-</button>
                                                                                 <p>Extra {extra[0]}</p>
                                                                             </div>
                                                                         )}
@@ -203,7 +206,10 @@ export default function Cart({cartProducts, setCartContent}) {
                                         {errors.paiement_moyen && (
                                             <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
                                         )}
-                                        <button type="submit" className={style["btn_commander"]}>Commander</button>
+
+                                        {totalPrice > 0 && (
+                                            <button type="submit" className={style["btn_commander"]}>Commander</button>
+                                        )}
                                 </form>
                         </div>
                     )}

@@ -234,7 +234,7 @@ h1 {
     color: white;
     cursor: pointer;
 }
-img {
+.panier_produit img, .panier_moyenPaiement img  {
     width: 25%;
     margin: 0 10px;
 }
