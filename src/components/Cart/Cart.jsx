@@ -41,16 +41,7 @@ export default function Cart({cartProducts, setCartContent}) {
     }
 
     const calculTotalCart = () => {
-        //console.log('calcul cart content');
-        let total = 0;
-        cartProducts.map((product) => {
-            let totalProduitPersonalized = 0;
-            totalProduitPersonalized += product.prix;
-            let totalExtras = 0;
-            product['prix des extras'].map(extra => totalExtras += extra.prix);
-            product.productPersonalizedPrice = totalProduitPersonalized + totalExtras;
-            total += (product['quantité'] * product.productPersonalizedPrice);
-        });
+        let total = cartProducts.reduce((accumulator, currentValue) => accumulator + (currentValue['quantité']*currentValue['prix']),0);
         setTotalPrice(total);
     }
 
@@ -86,9 +77,14 @@ export default function Cart({cartProducts, setCartContent}) {
         let newExtraPricelist = [];
         const newCartContent = cartProducts.map((product,i) => {
             if(i === productId){
-
+                let newPrice =  product.prix - product['prix des extras'].reduce((accumulator, currentValue) => accumulator + currentValue['prix'],0);
+                console.log(newPrice);
+                console.log(product['prix des extras'].reduce((accumulator, currentValue) => accumulator + currentValue['prix'],0));
                 product['prix des extras'].map(extra => {
+
                     if(extra.nom !== extraName) {
+                        newPrice += extra.prix;
+
                         newExtraPricelist.push(extra);
                     }
                 });
@@ -99,7 +95,7 @@ export default function Cart({cartProducts, setCartContent}) {
                         newExtralist.push(extra);
                     }
                 });
-
+                product.prix = newPrice;
                 product['prix des extras'] = newExtraPricelist;
                 product.options.extras = newExtralist;
                 //**/
@@ -170,7 +166,7 @@ export default function Cart({cartProducts, setCartContent}) {
                                                                 </div>
                                                             )}
 
-                                                            <p>{product.productPersonalizedPrice * product['quantité']} €</p>
+                                                            <p>{product['quantité'] *  product.prix} €</p>
                                                         </div>
                                                     </div>
                                                     <div className={style["panier_produitQuantity"]}>
