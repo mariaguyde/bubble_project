@@ -218,6 +218,20 @@ h1 {
     margin: 0!important;
 }
 
+.panier_produitDetailsOptions {
+    flex-direction: column;
+    font-size: 16px;
+    margin:0!important;
+}
+.panier_produitDetailsOptions  div {
+    margin:0!important;
+    width: max-content;
+    display: flex;
+}
+
+.panier_produitDetailsOptions  div p {
+    margin-left: 10px;
+}
 .error_message {
     font-size: 15px;
     color: red;

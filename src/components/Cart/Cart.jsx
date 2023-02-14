@@ -144,11 +144,17 @@ export default function Cart({cartProducts, setCartContent}) {
                                                         <img src={product.image} alt="produit"/>
                                                         <div className={style['panier_produitDetails']}>
                                                             <p>{product.nom}</p>
-                                                            {product.options.taille && (
-                                                                 <p>{product.options.taille}</p>
-                                                            )}
-                                                            {product.options["sauce piquante"] && (
-                                                                <p>{product.options["sauce piquante"] === "Oui" ? "Avec sauce piquante" : "Sans sauce piquante" }</p>
+
+                                                            {product.options && (
+                                                                <div className={style['panier_produitDetailsOptions']}>
+                                                                    {Object.entries(product.options).map(([key, value]) => {
+                                                                        if (key !== 'extras') {
+                                                                            return (
+                                                                                <div>{key[0].toUpperCase() + key.slice(1)}  :  <div>{value.map(itemValue => <p> {itemValue} </p>)}</div></div>
+                                                                            );
+                                                                        }
+                                                                    })}
+                                                                </div>
                                                             )}
 
                                                             {product.options.extras && (
@@ -163,6 +169,7 @@ export default function Cart({cartProducts, setCartContent}) {
                                                                     </div>
                                                                 </div>
                                                             )}
+
                                                             <p>{product.productPersonalizedPrice * product['quantité']} €</p>
                                                         </div>
                                                     </div>
@@ -187,27 +194,29 @@ export default function Cart({cartProducts, setCartContent}) {
                                             </div>
                                         </div>
 
-                                        <div id={style["panier_payment"]}>
-                                            <div className={style["panier_meanPayment"]}>
-                                                <input
-                                                    type="radio" name="paiement_moyen"
-                                                    value="carte-debit" id="carte-debit"
-                                                    onChange={()=>{setMethodePayment("carte-debit")}}
-                                                />
-                                                <img src={carteCredit} alt="carte de crédit"/>
-                                                <label htmlFor="carte-debit">Débit ou crédit</label>
-                                            </div>
+                                        {totalPrice > 0 && (
+                                            <div id={style["panier_payment"]}>
+                                                <div className={style["panier_meanPayment"]}>
+                                                    <input
+                                                        type="radio" name="paiement_moyen"
+                                                        value="carte-debit" id="carte-debit"
+                                                        onChange={()=>{setMethodePayment("carte-debit")}}
+                                                    />
+                                                    <img src={carteCredit} alt="carte de crédit"/>
+                                                    <label htmlFor="carte-debit">Débit ou crédit</label>
+                                                </div>
 
-                                            <div className={style["panier_meanPayment"]}>
-                                                <input
-                                                    type="radio" name="paiement_moyen"
-                                                    value="espece" id="espece"
-                                                    onChange={()=>{setMethodePayment("espece")}}
-                                                />
-                                                <img src={especes} alt="carte de crédit"/>
-                                                <label htmlFor="espece" >En espèces</label>
+                                                <div className={style["panier_meanPayment"]}>
+                                                    <input
+                                                        type="radio" name="paiement_moyen"
+                                                        value="espece" id="espece"
+                                                        onChange={()=>{setMethodePayment("espece")}}
+                                                    />
+                                                    <img src={especes} alt="carte de crédit"/>
+                                                    <label htmlFor="espece" >En espèces</label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
 
                                         {errors.payment_moyen && (
                                             <div className={style['error_message']}>Veuillez choisir votre moyen de paiement </div>
@@ -216,6 +225,7 @@ export default function Cart({cartProducts, setCartContent}) {
                                         {totalPrice > 0 && (
                                             <button type="submit" className={style["btn_order"]}>Commander</button>
                                         )}
+
                                 </form>
                         </div>
                     )}
