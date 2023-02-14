@@ -10,6 +10,7 @@ import { useState } from "react"
 export default function Menu() {
     const [selectedCategory, setSelectedCategory] = useState({ category: "boissons", subcategory: "", products: Object.keys(data.catégories["boissons"]).map(subcategory => data.catégories["boissons"][subcategory]["produits"]).flat() });
     const [selectedFilter, setSelectedFilter] = useState("");
+    const [cart, setCart] = useState([]);
 
     return (
         <div className={style["menu"]}>
@@ -30,7 +31,9 @@ export default function Menu() {
                     </div>
                 )}
                 <div className={style["product-cards-container"]}>
-                    {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} />)}
+                    {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} selectedCategory={selectedCategory} addToCart={setCart} cart={cart} />)}
+
+                    {/* pour connaître existant (pour connaitre la quantite qu'il y a dans la panier) */}
                 </div>
                 <Cart />
             </div>
