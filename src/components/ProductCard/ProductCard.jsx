@@ -1,23 +1,23 @@
 import style from './ProductCard.module.css'
 import Modal from '../Modal/Modal';
 import NotFound from '../NotFound/NotFound';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SelectableInput from '../SeletableInput/SelectableInput';
-import { v4 as uuidv4 } from "uuid";
 import QuantityPicker from '../QuantityPicker/QuantityPicker';
 
-export default function ProductCard({ productDetails, selectedCategory, addToCart, cart }) {
+export default function ProductCard({ productDetails, addToCart, cart }) {
 
   // Pour afficher les produits
   const [showProductDetails, setShowProductDetails] = useState(false);
-  
+
   // La quantité du produit
   const [productQuantity, setProductQuantity] = useState(1);
 
   // gestion des erreurs en récupérant les données des input dans le formulaires
-  const [formErrors, setFormErrors] = useState(false);
-  const [formSuccess, setFormSuccess] = useState(false);
-  const [allergens, setAllergens] = useState();
+  const [formError, setFormError] = useState("");
+  const [formSuccess, setFormSuccess] = useState("");
+  const [allergens, setAllergens] = useState([]);
+  const [price, setPrice] = useState();
 
   // On récupère les options unique et multiples
   const productUniqueOptions = Object.keys(productDetails.options.unique);
@@ -25,12 +25,13 @@ export default function ProductCard({ productDetails, selectedCategory, addToCar
   // Si productDetails.options.multiple existe alors on renvoie un array de multiple, si elle n'existe pas tableau vide
   const productMultipleOptions = productDetails.options.multiple ? Object.keys(productDetails.options.multiple) : [];
 
-  const productOptions = [...productUniqueOptions , ...productMultipleOptions];
+  const productOptions = [...productUniqueOptions, ...productMultipleOptions];
+  const productCardForm = useRef();
 
 
   // ajout d'un produit dans un panier
   const addProductToCart = (e) => {
-    
+
     const options = {};
 
     const inputValues = productOptions.map((option) =>
@@ -41,92 +42,101 @@ export default function ProductCard({ productDetails, selectedCategory, addToCar
           checkedInput.value
         ))
 
-
     inputValues.forEach((inputValue, i) => {
       options[productOptions[i]] = inputValue;
     })
 
-    const productIndex = cart.findIndex((product) => 
-    product.id === productDetails.id && JSON.stringify(product.options) === JSON.stringify(options));
+    // réinitialisation du formulaire, de la quantité du produit, du prix du produit etc 
+    e.target.reset();
+    setProductQuantity(1);
+    priceInitialization();
+    setAllergens([]);
 
-    if(productIndex !== -1) {
+    // on recherche un produit identique dans le panier
+    const productIndex = cart.findIndex((product) =>
+      product.id === productDetails.id && JSON.stringify(product.options) === JSON.stringify(options));
+
+    // s'il y a un produit identique, sa quantité sera modifiée par celle du quantity picker
+    if (productIndex !== -1) {
       const newCart = [...cart];
-      newCart.splice(productIndex, 1, {...cart[productIndex], quantité: productQuantity});
+      newCart.splice(productIndex, 1, { ...cart[productIndex], quantité: productQuantity });
+      // message de succès pour la modification
+      setFormSuccess(`La quantité du ${productDetails.nom} a bien été modifiée par ${productQuantity}.`);
+      // modification du panier
       addToCart(newCart);
       return
     }
 
-    let price = productDetails.prix ? productDetails.prix : productDetails.options.unique.taille.find((obj) => obj.nom === options.taille[0]).prix;
-
+    // sinon, le produit n'existe pas donc récupération des noms d'extras avec leur prix 
     let extras = [];
-    if(options.extras.length > 0) {
+    if (options.extras.length > 0) {
       extras = options.extras.map((extra) => productDetails.options.multiple.extras.find((obj) => obj.nom === extra));
-
-      const extrasPrices =  extras.map((extra) => 
-        extra.prix
-      )
-
-      price = [price, ...extrasPrices].reduce((productPrice, currValue) => productPrice + currValue);
     }
 
-    console.log([...cart, {...productDetails, options: options, quantité: productQuantity, prix: price, "prix des extras": extras}]);
-
-    addToCart([...cart, {...productDetails, options: options, quantité: productQuantity, prix: price, "prix des extras": extras}]);
-
+    // message de succès pour l'ajout
+    setFormSuccess(`${productQuantity} ${productDetails.nom} ${productQuantity > 1 ? "ont été ajoutés au panier." : "a été ajouté au panier."}`);
+    console.log([...cart, { ...productDetails, options: options, quantité: productQuantity, prix: Object.values(price).flat().reduce((acc, currValue) => acc + currValue), "prix des extras": extras }]);
+    // ajout du produit au panier
+    addToCart([...cart, { ...productDetails, options: options, quantité: productQuantity, prix: Object.values(price).flat().reduce((acc, currValue) => acc + currValue), "prix des extras": extras }]);
   }
 
   // gestion des erreurs
-  const handleSubmitAndAddingProduct = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+    // on met à vide les messages d'erreur et de succès
+    setFormError("")
+    setFormSuccess("");
 
     const radioInputsByName = {};
 
     // on regroupe les input radio par name
-    const radioInputs = document.querySelectorAll("input[type='radio']");
+    const radioInputs = productCardForm.current.querySelectorAll("input[type='radio']");
+
     radioInputs.forEach((input) => {
       if (!radioInputsByName[input.name]) {
         radioInputsByName[input.name] = [];
       }
-      radioInputsByName[input.name].push(input);
+
+      radioInputsByName[input.name].push(input)
     });
 
-    // On vérifie si au moins un input est :checked pour chaque groupe
-    const hasError = Object.keys(radioInputsByName).some((name) => {
-      const inputs = radioInputsByName[name];
-      const isChecked = inputs.some((input) => input.checked);
-      return !isChecked;
-    });
+    // on vérifie si tous les groupes d'inputs ont au moins un input checked 
+    const allInputsChecked = Object.keys(radioInputsByName).every((name) => radioInputsByName[name].some(input => input.checked));
 
-    if (hasError) {
-      console.log('pas valide')
-      setFormErrors(true);
+    // si c'est false (il manque un input checked dans un ou plusieurs groupes d'inputs)
+    if (!allInputsChecked) {
+      setFormError("Remplissez bien toutes les options requises. (*)");
       return
-    } 
-    setFormErrors(false)
-    setFormSuccess(true);
+    }
+
     addProductToCart(e)
-  
   };
 
-  const handleAddingAllergens = (e) => {
-    const allergenValue = e.toLowerCase();
-    if (productDetails.allergènes[allergenValue]) {
-      console.log(productDetails.allergènes[allergenValue]);
-      const allergens = productDetails.allergènes[allergenValue];
-      const allergenList = allergens.map((allergen, i) => <li key={i} className={style["product-card-tag"]}>{allergen}</li>);
-      setAllergens(allergenList);
+  const priceInitialization = () => {
+    let priceDetails = {};
+
+    if(productCardForm.current) {
+      productCardForm.current.querySelectorAll("input").forEach((input) => priceDetails[input.name] = []);
       
+      priceDetails = { ...priceDetails, initialPrice: productDetails.prix ? productDetails.prix : 0 }
+      
+      setPrice(priceDetails);
     }
   }
 
+  const showAllergens = (optionValue) => setAllergens(productDetails.allergènes[optionValue.toLowerCase()]);
 
   useEffect(() => {
-    if (!showProductDetails) {
-      setFormSuccess(false);
-      setFormErrors(false);
+    if (showProductDetails) {
+      setFormSuccess("");
+      setFormError("");
+      setProductQuantity(1);
+      setAllergens([])
+      priceInitialization();
     }
   }, [showProductDetails]);
-  
+
 
   return (
     <>
@@ -137,90 +147,91 @@ export default function ProductCard({ productDetails, selectedCategory, addToCar
           </div>
         )}
         <div className={style["product-image"]}>
-          <img src={productDetails.image} alt={`notre produit ${productDetails.nom}`} />
+          <img src={productDetails.image} alt={productDetails.nom} />
         </div>
         <div className={style["product-name"]}>
           {productDetails.nom}
         </div>
       </div>
-      
+
       {showProductDetails && (
         <Modal setShowModal={setShowProductDetails}>
           {productDetails.disponibilité ?
             (
               <div className={style["product-card-wrapper"]}>
-              <div className={style["product-card-modal"]}>
-                <div className={style["product-card-description"]}>
-                  <div className={style["product-card-image"]}>
-                    <img src={productDetails.image} alt={`notre produit ${productDetails.nom}`} />
-                  </div>
-                  {/* Description */}
-                  <h3>{productDetails.nom}</h3>
-                  <h4>{productDetails.description}</h4>
-                  {productDetails.régime && 
-                    <div className={style["product-card-special"]}>
-                      <h5 className={style["product-card-special__title"]}>Régimes et/ou Allergènes</h5>
-                      <ul className={style["product-card-tag-container"]}>
-                        <li className={style["product-card-tag"]}>{productDetails.régime}</li>
-                          {productDetails.allergènes && (
-                              typeof productDetails.allergènes === 'object' && productDetails.allergènes !== null && !Array.isArray(productDetails.allergènes) ? allergens.map((allergen, i) => 
-                              <li key={i} className={style["product-card-tag"]} >{allergen}</li>) 
-                              : productDetails.allergènes.map((allergen, i) => 
-                              <li key={i} className={style["product-card-tag"]}>{allergen}</li>)
-                          )}
-                      </ul>
+                <div className={style["product-card-modal"]}>
+                  <div className={style["product-card-description"]}>
+                    <div className={style["product-card-image"]}>
+                      <img src={productDetails.image} alt={productDetails.nom} />
                     </div>
-                  }
-                  <QuantityPicker quantity={productQuantity} setQuantity={setProductQuantity} />
-                </div>
+                    {/* Description */}
+                    <h3>{productDetails.nom}</h3>
+                    <h4>{productDetails.description}</h4>
+                    {productDetails.régime &&
+                      <div className={style["product-card-special"]}>
+                        <h5 className={style["product-card-special__title"]}>Régime</h5>
+                        <ul className={style["product-card-tag-container"]}>
+                          {productDetails.régime.map((diet, i) => <li key={i} className={style["product-card-tag"]}>{diet}</li>)}
+                        </ul>
+                      </div>
+                    }
+                    {productDetails.allergènes && (
+                      <div className={style["product-card-allergens-container"]}>
+                        <div className={style["product-card-allergens__title"]}>Allergènes</div>
+                        <ul className={style["product-card-allergens"]}>{typeof productDetails.allergènes === 'object' && productDetails.allergènes !== null && !Array.isArray(productDetails.allergènes) ? allergens.map((allergen, i) => <li key={i}>{allergen}</li>) : productDetails.allergènes.map((allergen, i) => <li key={i}>{allergen}</li>)}</ul>
+                      </div>
+                    )}
+                    <div className={style["quantity-picker"]}>
+                      <QuantityPicker quantity={productQuantity} setQuantity={setProductQuantity} />
+                    </div>
+                  </div>
 
-                {/* Détails choix personnalisation si c'est un thé ou un sandwich */}
-                <div className={style["product-card-custom-container"]}>
-                  <form className={style["product-card-custom-subcontainer"]} onSubmit={handleSubmitAndAddingProduct} >
-                    {/* il me faut pour les boissons la taille / la température / le taux de sucre / le thé / les bulles / les allergènes / puis il faut calculer le prix à partir de la taille et si des extras rajouter */}
-                    
-                    <div className={style["product-details-type"]}>
+                  {/* Détails choix personnalisation si c'est un thé ou un sandwich */}
+                  <div className={style["product-card-custom-container"]}>
+                    <form ref={productCardForm} className={style["product-card-custom-subcontainer"]} onSubmit={handleSubmit} >
+
+                      <div className={style["product-details-type"]}>
                         {productUniqueOptions.map((option, i) =>
                           <div key={i} className={style["product-details-type__input-container"]}>
-                            <h4 className={style["product-details-type__title"]}>{option}</h4>
+                            <h4 className={style["product-details-type__title"]}>{option} <span>*</span></h4>
                             <div className={style["product-details-type__inputs"]}>
-                              {productDetails.options.unique[option].map((optionValue, i) => 
-                                typeof optionValue === "object" ? <SelectableInput key={i} title={optionValue.nom} id={`option-${option}-${i+1}`} name={option} price={optionValue.prix} type="radio" onclick={() => handleAddingAllergens(optionValue)} />
+                              {productDetails.options.unique[option].map((optionValue, i) =>
+                                typeof optionValue === "object" ? <SelectableInput key={i} title={optionValue.nom} id={`option-${option}-${i + 1}`} name={option} price={optionValue.prix} type="radio" productPrice={price} setProductPrice={setPrice} />
                                   :
-                                  <SelectableInput key={i} title={optionValue} id={`option-${option}-${i+1}`} name={option} type="radio" onclick={() => handleAddingAllergens(optionValue)} />
+                                  <SelectableInput key={i} title={optionValue} id={`option-${option}-${i + 1}`} name={option} type="radio" {...(productDetails.allergènes && productDetails.allergènes[optionValue.toLowerCase()] && { showAllergens: () => showAllergens(optionValue) })} />
                               )}
                             </div>
                           </div>
                         )}
-                    </div>
-                    <div className={style["product-details-type-extras"]}>
-                    {productMultipleOptions.map((option, i) =>
+                      </div>
+                      <div className={style["product-details-type-extras"]}>
+                        {productMultipleOptions.map((option, i) =>
                           <div key={i} className={style["product-details-type__input-container"]}>
                             <h4 className={style["product-details-type__title"]}>{option}</h4>
                             <div className={style["product-details-type__inputs"]}>
-                          {productDetails.options.multiple[option].map((optionValue, i) =>
-                            typeof optionValue === "object" ? <SelectableInput key={i} title={optionValue.nom} id={`option-${option}-${i + 1}`} name={option} price={optionValue.prix} type="checkbox" />
-                              :
-                              <SelectableInput title={optionValue} id={`option-${option}-${i + 1}`} key={i} name={option} type="checkbox"  />
-                          )}
+                              {productDetails.options.multiple[option].map((optionValue, i) =>
+                                typeof optionValue === "object" ? <SelectableInput key={i} title={optionValue.nom} id={`option-${option}-${i + 1}`} name={option} price={optionValue.prix} type="checkbox" productPrice={price} setProductPrice={setPrice} />
+                                  :
+                                  <SelectableInput title={optionValue} id={`option-${option}-${i + 1}`} key={i} name={option} type="checkbox" />
+                              )}
                             </div>
                           </div>
                         )}
-                    </div>
-                    {formErrors && 
-                      <div className={style["product-card-errors"]}>
-                        <p>Remplissez bien toutes les options</p>
-                      </div> 
+                      </div>
+                      {formError &&
+                        <div className={style["product-card-errors"]}>
+                          <p>{formError}</p>
+                        </div>
                       }
-                      {formSuccess && 
-                      <div className={style["product-card-success"]}>
-                        <p>{productQuantity} produit {productQuantity > 1 ? "ont été ajoutés à votre commande" : "a été ajouté"}</p>
-                      </div> 
+                      {formSuccess &&
+                        <div className={style["product-card-success"]}>
+                          <p>{formSuccess}</p>
+                        </div>
                       }
                       <div className={style["product-details-price"]}>
-                        {productDetails.prix ?
+                        {price ?
                           <div className={style["product-card-cart"]}>
-                            <p className={style["product-card-price"]}>{productDetails.prix}</p>
+                            <p className={style["product-card-price"]}>{Object.values(price).flat().reduce((initialPrice, optionPrice) => initialPrice + optionPrice)}</p>
                           </div> :
                           <div className={style["product-card-cart"]}>
                             <p className={style["product-card-title"]}>Faites votre choix</p>
@@ -230,10 +241,10 @@ export default function ProductCard({ productDetails, selectedCategory, addToCar
                         <button type="submit">Ajouter</button>
 
                       </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
             )
             :
             <NotFound productName={productDetails.nom} />}

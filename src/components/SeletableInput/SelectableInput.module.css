@@ -1,33 +1,25 @@
-.selected {
-    opacity: 0;
-    visibility: hidden;
+.option-input {
     display: none;
 }  
 
-.selected:checked + .checkbox__state-notchecked {
+.option-input:checked + .option-label {
     background-color: #f9f9f9;
     border: 4px solid #ffd983;
 }
 
-.checkbox__state-notchecked {
-    border: 1px solid rgb(121, 121, 121);
-}
-
-.checkbox__state-checked, .checkbox__state-notchecked {
-    font-size: 2rem;
+.option-label {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
-    border-radius: 36px;
-    height: 45px;
     width: 275px;
+    height: 45px;
+    font-size: 2rem;
+    background: #fff;
+    border: 1px solid rgb(121, 121, 121);
+    border-radius: 36px;
     margin-right: 1rem;
     margin-bottom: 1rem;
-}
-.checkbox__state-checked:last-child, .checkbox__state-notchecked:last-child {
-    margin-right: 0;
-    margin-bottom: 0;
+    cursor: pointer;
 }
 
 .price-attribute:after {

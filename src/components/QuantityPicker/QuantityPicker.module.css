@@ -1,13 +1,12 @@
-.quantity-selector-container {
-    margin-block: 3rem;
+.quantity-picker-container {
     display: flex;
     align-items: center;
-    column-gap: 20px;
+    column-gap: 30px;
     font-size: 3rem;
     font-weight: bold;
 }
 
-.quantity-selector {
+.quantity-picker {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,9 +17,11 @@
     border: 1px solid #979696;
     cursor: pointer;
 }
-.quantity-selector p {
-    margin-bottom: 3px;
+
+.quantity-picker span {
+    margin-bottom: 0.4rem;
 }
+
 .quantity {
     padding-inline: 2rem;
 }

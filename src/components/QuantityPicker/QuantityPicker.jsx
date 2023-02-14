@@ -4,8 +4,8 @@ export default function QuantitySelector({ quantity, setQuantity, minimum }) {
   const modifyQuantity = (action) => {
     let minQuantity = 1;
 
-    if(minimum !== undefined) {
-      minQuantity = minimum; 
+    if (minimum !== undefined) {
+      minQuantity = minimum;
     }
 
     if (action === "add") {
@@ -21,14 +21,16 @@ export default function QuantitySelector({ quantity, setQuantity, minimum }) {
   };
 
   return (
-    <div className={style["quantity-selector-container"]}>
-      <div onClick={() => modifyQuantity("subtract")} className={style["quantity-selector"]}>
-        <p>-</p>
+    <div className={style["quantity-picker-container"]}>
+      <div onClick={() => modifyQuantity("subtract")} className={style["quantity-picker"]}>
+        <span>
+          -
+        </span>
       </div>
       <div className={style["quantity"]}>{quantity}</div>
-      <div onClick={() => modifyQuantity("add")} className={style["quantity-selector"]}>
-        <p>+</p>
-        </div>
+      <div onClick={() => modifyQuantity("add")} className={style["quantity-picker"]}>
+        +
+      </div>
     </div>
   )
 }
