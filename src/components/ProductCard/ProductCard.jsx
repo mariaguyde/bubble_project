@@ -18,6 +18,7 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
   const [formSuccess, setFormSuccess] = useState("");
   const [allergens, setAllergens] = useState([]);
   const [price, setPrice] = useState();
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // On récupère les options unique et multiples
   const productUniqueOptions = Object.keys(productDetails.options.unique);
@@ -64,6 +65,7 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
       setFormSuccess(`La quantité du ${productDetails.nom} a bien été modifiée par ${productQuantity}.`);
       // modification du panier
       addToCart(newCart);
+      setTimeout(() => setFormSubmitted(true), 2000);
       return
     }
 
@@ -75,9 +77,9 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
 
     // message de succès pour l'ajout
     setFormSuccess(`${productQuantity} ${productDetails.nom} ${productQuantity > 1 ? "ont été ajoutés au panier." : "a été ajouté au panier."}`);
-    console.log([...cart, { ...productDetails, options: options, quantité: productQuantity, prix: Object.values(price).flat().reduce((acc, currValue) => acc + currValue), "prix des extras": extras }]);
     // ajout du produit au panier
     addToCart([...cart, { ...productDetails, options: options, quantité: productQuantity, prix: Object.values(price).flat().reduce((acc, currValue) => acc + currValue), "prix des extras": extras }]);
+    setTimeout(() => setFormSubmitted(true), 2000);
   }
 
   // gestion des erreurs
@@ -116,11 +118,11 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
   const priceInitialization = () => {
     let priceDetails = {};
 
-    if(productCardForm.current) {
+    if (productCardForm.current) {
       productCardForm.current.querySelectorAll("input").forEach((input) => priceDetails[input.name] = []);
-      
+
       priceDetails = { ...priceDetails, initialPrice: productDetails.prix ? productDetails.prix : 0 }
-      
+
       setPrice(priceDetails);
     }
   }
@@ -134,6 +136,7 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
       setProductQuantity(1);
       setAllergens([])
       priceInitialization();
+      setFormSubmitted(false);
     }
   }, [showProductDetails]);
 
@@ -155,7 +158,7 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
       </div>
 
       {showProductDetails && (
-        <Modal setShowModal={setShowProductDetails}>
+        <Modal setShowModal={setShowProductDetails} formSubmitted={formSubmitted}>
           {productDetails.disponibilité ?
             (
               <div className={style["product-card-wrapper"]}>
@@ -229,12 +232,9 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
                         </div>
                       }
                       <div className={style["product-details-price"]}>
-                        {price ?
+                        {price &&
                           <div className={style["product-card-cart"]}>
-                            <p className={style["product-card-price"]}>{Object.values(price).flat().reduce((initialPrice, optionPrice) => initialPrice + optionPrice)}</p>
-                          </div> :
-                          <div className={style["product-card-cart"]}>
-                            <p className={style["product-card-title"]}>Faites votre choix</p>
+                            <p className={style["product-card-price"]}><span>Prix du {productDetails.nom} :</span> {Object.values(price).flat().reduce((initialPrice, optionPrice) => initialPrice + optionPrice).toFixed(2)}</p>
                           </div>
                         }
 

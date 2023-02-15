@@ -70,6 +70,85 @@
     animation: hideCartDetails 0.5s forwards;
 }
 
+
+.container {
+    padding: 50px;
+}
+
+h1 {
+    font-family: Montserrat, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 100px;
+}
+
+.cart-product-list {
+    margin-bottom: 50px;
+}
+
+.cart-payment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.cart-payment {
+    display: flex;
+    gap: 50px 100px;
+    margin-bottom: 50px;
+}
+
+.cart-mean-payment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.cart-mean-payment img {
+    width: 100px;
+}
+
+.cart-mean-payment input {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.cart-mean-payment label {
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.error-message {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 30px;
+}
+
+.cart-total-price {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.btn-order {
+    background-color: var(--orange);
+    border: none;
+    border-radius: 50px;
+    font-size: 2rem;
+    padding: 20px;
+    width: 100%;
+    color: white;
+    cursor: pointer;
+}
+
 @keyframes showCartDetails {
     from {
         transform: translateY(100%);

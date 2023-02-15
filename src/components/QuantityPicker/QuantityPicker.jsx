@@ -1,6 +1,6 @@
 import style from './QuantityPicker.module.css'
 
-export default function QuantitySelector({ quantity, setQuantity, minimum }) {
+export default function QuantityPicker({ quantity, setQuantity, minimum }) {
   const modifyQuantity = (action) => {
     let minQuantity = 1;
 

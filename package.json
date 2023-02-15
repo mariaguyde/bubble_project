@@ -1,12 +1,13 @@
 {
   "name": "bubble_project",
   "version": "0.1.0",
-  "homepage" : "https://mariaguyde.github.io/bubble_project/",
+  "homepage": "https://mariaguyde.github.io/bubble_project/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap-icons": "^1.10.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.2",
@@ -19,8 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +44,4 @@
   "devDependencies": {
     "gh-pages": "^5.0.0"
   }
-
 }

@@ -33,7 +33,7 @@ export default function Menu() {
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} addToCart={setCart} cart={cart} />)}
                 </div>
-                <Cart />
+                <Cart cartProducts={cart} setCartContent={setCart} />
             </div>
         </div>
     )
