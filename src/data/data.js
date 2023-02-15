@@ -17,6 +17,7 @@ export const data = {
               vache: ["Lactose"],
               amande: ["Fruits à coque"],
               soja: ["Soja"],
+              avoine: ["Aucun"]
             },
             options: {
               multiple: {
@@ -42,6 +43,7 @@ export const data = {
             nom: "Bubble Tea Mangue",
             description: "Il rend complètement gaga !",
             disponibilité: true,
+            allergènes: ["Aucun"],
             options: {
               multiple: {
                 extras: [
@@ -74,6 +76,7 @@ export const data = {
               vache: ["Lactose"],
               amande: ["Fruits à coque"],
               soja: ["Soja"],
+              avoine: ["Aucun"]
             },
             options: {
               multiple: {
@@ -103,6 +106,7 @@ export const data = {
             nom: "Bubble Tea Pamplemousse doux",
             description: "Un zeste de douceur !",
             disponibilité: true,
+            allergènes: ["Aucun"],
             options: {
               multiple: {
                 extras: [
@@ -134,6 +138,7 @@ export const data = {
               vache: ["Lactose"],
               amande: ["Fruits à coque"],
               soja: ["Soja"],
+              avoine: ["Aucun"]
             },
             options: {
               multiple: {
@@ -167,6 +172,7 @@ export const data = {
               vache: ["Lactose"],
               amande: ["Fruits à coque"],
               soja: ["Soja"],
+              avoine: ["Aucun"]
             },
             options: {
               multiple: {
@@ -200,6 +206,7 @@ export const data = {
               vache: ["Lactose"],
               amande: ["Fruits à coque"],
               soja: ["Soja"],
+              avoine: ["Aucun"]
             },
             options: {
               unique: {
@@ -226,6 +233,7 @@ export const data = {
               vache: ["Lactose"],
               amande: ["Fruits à coque"],
               soja: ["Soja"],
+              avoine: ["Aucun"]
             },
             options: {
               multiple: {

@@ -10,7 +10,7 @@ export default function Modal({ setShowModal, children }) {
         modal.current.classList.add(style["modal--hidden"]);
         const closeModal = setTimeout(() => {
             setShowModal(false)
-            clearTimeout(closeModal);
+            // clearTimeout(closeModal);
         }, 550);
     }
 
