@@ -3,6 +3,7 @@ import "./App.css"
 import Home from "./components/Home/Home";
 import Menu from "./components/Menu/Menu";
 import NotFound from "./components/NotFound/NotFound";
+import './variables.css'
 
 function App() {
   return (
