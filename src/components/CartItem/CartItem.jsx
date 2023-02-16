@@ -46,9 +46,9 @@ export default function CartItem({ productInfo, cartContent, setCartContent }) {
 
                 <ul className={style['cart-product-details-options']}>
                     {Object.entries(productInfo.options).map(([key, value], i) => {
-                        if (key !== 'extras') {
+                        if (key !== 'extras' && value.length > 0) {
                             return (
-                                <li key={i} className={style['cart-product-details-options__item']}><span>{key[0].toUpperCase() + key.slice(1)}</span>  : {value.join(", ")}</li>
+                                <li key={i} className={style['cart-product-details-options__item']}><span>{key[0].toUpperCase() + key.slice(1)}</span> : {value.join(", ")}</li>
                             );
                         }
                     })}

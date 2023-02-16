@@ -138,17 +138,6 @@ h1 {
     font-weight: bold;
 }
 
-.btn-order {
-    background-color: var(--orange);
-    border: none;
-    border-radius: 50px;
-    font-size: 2rem;
-    padding: 20px;
-    width: 100%;
-    color: white;
-    cursor: pointer;
-}
-
 @keyframes showCartDetails {
     from {
         transform: translateY(100%);

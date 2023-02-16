@@ -4,6 +4,7 @@ import NotFound from '../NotFound/NotFound';
 import { useState, useEffect, useRef } from 'react';
 import SelectableInput from '../SeletableInput/SelectableInput';
 import QuantityPicker from '../QuantityPicker/QuantityPicker';
+import Button from '../Button/Button';
 
 export default function ProductCard({ productDetails, addToCart, cart, selectedCategory }) {
 
@@ -239,7 +240,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
                           </div>
                         }
 
-                        <button type="submit">Ajouter</button>
+                        <Button text="Ajouter" backgroundColor="#fec403" />
 
                       </div>
                     </form>

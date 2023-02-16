@@ -58,18 +58,6 @@ label {
     outline: none;
 }
 
-.btn-order {
-    background-color: var(--orange);
-    border: none;
-    border-radius: 50px;
-    font-size: 2rem;
-    padding: 20px;
-    width: 100%;
-    color: white;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
 .error-message {
     font-size: 1.5rem;
     font-weight: bold;

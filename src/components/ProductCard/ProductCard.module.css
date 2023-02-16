@@ -70,17 +70,6 @@
     padding: 2rem;
 }
 
-.product-card-modal button {
-    border: 1px solid #fec403;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-    border-radius: 4rem;
-    background-color: #fec403;
-    padding: 1.5rem 5rem;
-    cursor: pointer;
-}
-
 .product-card-description {
     display: flex;
     width: 100%;

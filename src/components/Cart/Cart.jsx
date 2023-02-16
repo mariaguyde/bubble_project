@@ -6,6 +6,7 @@ import Payment from "../Payment/Payment";
 import Modal from '../Modal/Modal';
 import style from './Cart.module.css';
 import { useState, useEffect } from 'react';
+import Button from "../Button/Button";
 
 export default function Cart({ cartProducts, setCartContent }) {
     const [showPayment, setShowPayment] = useState(false);
@@ -28,14 +29,19 @@ export default function Cart({ cartProducts, setCartContent }) {
 
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
-        } else {
-            setShowPayment(true);
+            return
         }
+
+        setErrors({});
+        setShowPayment(true);
     }
 
     useEffect(() => {
-        setErrors({});
-    }, [showPayment])
+        if (showCart) {
+            setPaymentMethod("");
+            setShowPayment(false);
+        }
+    }, [showCart])
 
     return (
         <>
@@ -97,7 +103,8 @@ export default function Cart({ cartProducts, setCartContent }) {
                                             {errors.paymentMethod && (
                                                 <div className={style['error-message']}>Veuillez choisir votre moyen de paiement.</div>
                                             )}
-                                            <button type="submit" className={style["btn-order"]}>Commander</button>
+
+                                            <Button width="100%" text="Commander" backgroundColor="#ff5800" />
                                         </>
                                     )}
                                 </form>

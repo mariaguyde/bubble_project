@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import style from './Payment.module.css';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import Button from "../Button/Button";
 
 
 export default function Payment({ cartContent, paymentMethod, setShowPaymentComponent }) {
@@ -53,11 +54,13 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
 
         if (Object.keys(formErrors).length > 0) {
             setErrors(formErrors);
-        } else {
-            setErrors({});
-            navigate(`/order-recap/${orderNumber}`, { state: { cartContent, tableNumber } })
-            sendEmail();
+            return
         }
+
+        setErrors({});
+        navigate(`/order-recap/${orderNumber}`, { state: { cartContent, tableNumber } })
+        sendEmail();
+
     }
 
     const sendEmail = () => {
@@ -133,7 +136,7 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
                     </div>
                 )}
 
-                <button className={style["btn-order"]} type="submit">Valider</button>
+                <Button width="100%" text="Payer" backgroundColor="#ff5800" />
             </form>
         </div>
     )
