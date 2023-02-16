@@ -40,10 +40,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-.input-container:last-of-type {
-    margin-bottom: 50px;
-}
-
 .card-info-container {
     margin-top: 80px;
 }
@@ -71,6 +67,7 @@ label {
     width: 100%;
     color: white;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .error-message {

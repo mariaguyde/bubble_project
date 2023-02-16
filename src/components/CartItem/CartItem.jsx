@@ -6,7 +6,6 @@ export default function CartItem({ productInfo, cartContent, setCartContent }) {
     const [productQuantity, setProductQuantity] = useState(productInfo.quantité);
     const productCartIndex = cartContent.findIndex(product => product.id === productInfo.id && JSON.stringify(product.options) === JSON.stringify(productInfo.options));
 
-
     const removeExtra = (extra) => {
         const extraIndex = productInfo.options.extras.findIndex(extraName => extraName === extra);
 
@@ -62,7 +61,7 @@ export default function CartItem({ productInfo, cartContent, setCartContent }) {
                                 -
                             </span>
                         </div>
-                        <p className={style['cart-product-single-extra__name']}>Extra {extra.nom} - {extra.prix}€</p>
+                        <p className={style['cart-product-single-extra__name']}>Extra {extra.nom} - {extra.prix.toFixed(2)}€</p>
                     </div>
                 )}
 

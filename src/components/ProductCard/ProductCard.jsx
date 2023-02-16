@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import SelectableInput from '../SeletableInput/SelectableInput';
 import QuantityPicker from '../QuantityPicker/QuantityPicker';
 
-export default function ProductCard({ productDetails, addToCart, cart }) {
+export default function ProductCard({ productDetails, addToCart, cart, selectedCategory }) {
 
   // Pour afficher les produits
   const [showProductDetails, setShowProductDetails] = useState(false);
@@ -178,6 +178,7 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
                         </ul>
                       </div>
                     }
+                    {selectedCategory.category === "nourriture" && <div className={style["warning"]}>Légumes non inclus. <br /> Cochez les options souhaitées pour votre {productDetails.nom}.</div>}
                     {productDetails.allergènes && (
                       <div className={style["product-card-allergens-container"]}>
                         <div className={style["product-card-allergens__title"]}>Allergènes</div>
@@ -234,7 +235,7 @@ export default function ProductCard({ productDetails, addToCart, cart }) {
                       <div className={style["product-details-price"]}>
                         {price &&
                           <div className={style["product-card-cart"]}>
-                            <p className={style["product-card-price"]}><span>Prix du {productDetails.nom} :</span> {Object.values(price).flat().reduce((initialPrice, optionPrice) => initialPrice + optionPrice).toFixed(2)}</p>
+                            <p className={style["product-card-price"]}><span>Prix du {productDetails.nom} :</span> {Object.values(price).flat().reduce((initialPrice, optionPrice) => initialPrice + optionPrice).toFixed(2) * productQuantity}</p>
                           </div>
                         }
 
