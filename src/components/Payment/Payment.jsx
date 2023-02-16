@@ -38,7 +38,7 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
             // récupération des valeurs + gestion des erreurs des 3 autre champs
             formData = { ...formData, cardNumber: e.target["card-number"].value, expiryDate: e.target["expiry-date"].value, cvc: e.target["cvc"].value }
 
-            if (!/^((0[1-9])|(1[0-2]))[\/\.\-]*((0[8-9])|(1[1-9]))$/.test(formData.expiryDate)) {
+            if (!/^(0\d|1[0-2])\/\d{2}$/.test(formData.expiryDate)) {
                 formErrors['expiryDate'] = true;
             }
 
