@@ -1,7 +1,10 @@
 {
   "files": {
-    "main.css": "/bubble_project/static/css/main.7dda915f.css",
-    "main.js": "/bubble_project/static/js/main.7ed303f2.js",
+    "main.css": "/bubble_project/static/css/main.1c39dd90.css",
+    "main.js": "/bubble_project/static/js/main.13630c35.js",
+    "static/media/bootstrap-icons.woff?": "/bubble_project/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
+    "static/media/money.png": "/bubble_project/static/media/money.45913a34ad2fdf8017cf.png",
+    "static/media/bootstrap-icons.woff2?": "/bubble_project/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
     "static/media/wrap_vege.jpg": "/bubble_project/static/media/wrap_vege.435fc74a4e00c4fa206f.jpg",
     "static/media/wrap_boeuf.jpg": "/bubble_project/static/media/wrap_boeuf.a218deaec15c9f70094d.jpg",
     "static/media/wrap_poulet.jpg": "/bubble_project/static/media/wrap_poulet.84751e20951385886c38.jpg",
@@ -15,14 +18,15 @@
     "static/media/coco-3-guys.jpg": "/bubble_project/static/media/coco-3-guys.aaf0dbc05b9aabebdd87.jpg",
     "static/media/coco-red-bean-matcha-milk-tea.jpg": "/bubble_project/static/media/coco-red-bean-matcha-milk-tea.9f07cd0572aab71caa58.jpg",
     "static/media/coco-grapefruit-yakult.jpg": "/bubble_project/static/media/coco-grapefruit-yakult.30cd2a3f823a50c93c51.jpg",
-    "static/media/bu.svg": "/bubble_project/static/media/bu.c69e2956e5ad9cdfb54f1fdbbe85b939.svg",
+    "static/media/bu.svg": "/bubble_project/static/media/bu.34d99f27a7ff3f894bb8b34bf1f9ab89.svg",
+    "static/media/credit-card.svg": "/bubble_project/static/media/credit-card.54dd846499f93bbd4c39973d1fdbf73c.svg",
     "index.html": "/bubble_project/index.html",
-    "static/media/close-icon.svg": "/bubble_project/static/media/close-icon.ab9b0d4d4514d83e0682dcb5c383ca82.svg",
-    "main.7dda915f.css.map": "/bubble_project/static/css/main.7dda915f.css.map",
-    "main.7ed303f2.js.map": "/bubble_project/static/js/main.7ed303f2.js.map"
+    "static/media/close-icon.svg": "/bubble_project/static/media/close-icon.ce49c7cecc1a10cd0192ff2b61e03024.svg",
+    "main.1c39dd90.css.map": "/bubble_project/static/css/main.1c39dd90.css.map",
+    "main.13630c35.js.map": "/bubble_project/static/js/main.13630c35.js.map"
   },
   "entrypoints": [
-    "static/css/main.7dda915f.css",
-    "static/js/main.7ed303f2.js"
+    "static/css/main.1c39dd90.css",
+    "static/js/main.13630c35.js"
   ]
 }
