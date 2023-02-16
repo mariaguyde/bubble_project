@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import style from './Payment.module.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
+
 
 export default function Payment({ cartContent, paymentMethod, setShowPaymentComponent }) {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
     const tableNumber = Math.floor(Math.random() * (20 - 1 + 1) + 1);
-    const commandNumber = Math.random().toString(36).substring(3, 9).toUpperCase();
+    const orderNumber = Math.random().toString(36).substring(3, 9).toUpperCase();
+    const orderRecap = [cartContent.map(product => `Produit : ${product.nom} \n${Object.entries(product.options).map(option => `${option[0].charAt(0).toUpperCase() + option[0].slice(1)} : ${option[1].length > 0 ? option[1].join(", ") : "Aucun"}`).join("\n")}\nQuantité : ${product.quantité}\nPrix : ${product.prix.toFixed(2)}€\n${product.options.extras.length > 0 ? `Prix des extras : ${product.options.extras.map((extra, i) => `${extra} - ${product["prix des extras"][i].prix.toFixed(2)}€`).join(", ")}` : ""}\n\n-----\n\n`).join(""), `Montant total : ${cartContent.reduce((accumulator, currentValue) => accumulator + (currentValue['quantité'] * currentValue['prix']), 0).toFixed(2)}€`].join("");
+    const form = useRef();
 
     const goBackToCart = () => {
         setShowPaymentComponent(false);
@@ -20,7 +24,7 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
         let formData = {
             lastName: e.target["last-name"].value.trim(),
             firstName: e.target["first-name"].value.trim(),
-            email: e.target["email"].value.trim(),
+            mail: e.target["mail"].value.trim(),
         }
 
         Object.keys(formData).forEach(key => {
@@ -51,9 +55,20 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
             setErrors(formErrors);
         } else {
             setErrors({});
-            // push to recap page
+            navigate(`/order-recap/${orderNumber}`, { state: { cartContent, tableNumber } })
+            sendEmail();
         }
     }
+
+    const sendEmail = () => {
+        emailjs.sendForm('service_zkcmmvy', 'template_hg10m1i', form.current, 'UXRnVF4HinCc3ncEk')
+            .then((result) => {
+
+            }, (error) => {
+                console.error(error);
+            });
+    };
+
 
     return (
         <div className={style['payment-container']}>
@@ -67,7 +82,7 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
                 {paymentMethod === 'card' ? <p className={style["payment-info__text"]}>Veuillez renseigner les champs suivants avant de procéder au paiement. </p> : <p className={style["payment-info__text"]}>Renseignez les champs suivants et rendez-vous au comptoir pour payer votre commande.</p>}
             </div>
 
-            <form onSubmit={handleSubmit} className={style["payment-form"]}>
+            <form ref={form} onSubmit={handleSubmit} className={style["payment-form"]}>
                 <div className={style["input-container"]}>
                     <label htmlFor="last-name">Nom</label>
                     <input type="text" name="last-name" id="last-name" />
@@ -79,11 +94,17 @@ export default function Payment({ cartContent, paymentMethod, setShowPaymentComp
                     {errors.firstName && (<div className={style['error-message']}>Veuillez renseigner votre prénom.</div>)}
                 </div>
                 <div className={style["input-container"]}>
-                    <label htmlFor="email">Adresse mail</label>
-                    <input type="email" name="email" id="email" placeholder='votreprenom@exemple.com' />
-                    {errors.email && (<div className={style['error-message']}>
+                    <label htmlFor="mail">Adresse mail</label>
+                    <input type="email" name="mail" id="mail" placeholder='votreprenom@exemple.com' />
+                    {errors.mail && (<div className={style['error-message']}>
                         <p>Veuillez renseigner votre adresse mail.</p>
                     </div>)}
+                </div>
+
+                <div className={style["recap"]}>
+                    <textarea name="recap" value={orderRecap} hidden readOnly></textarea>
+                    <input type="text" name="order-number" value={orderNumber} hidden readOnly />
+                    <input type="text" name="table-number" value={tableNumber} hidden readOnly />
                 </div>
 
                 {paymentMethod === 'card' && (
