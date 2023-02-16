@@ -8,14 +8,17 @@ export default function CartItem({ productInfo, cartContent, setCartContent }) {
 
 
     const removeExtra = (extra) => {
+        // trouve l'extra dans l'objet
         const extraIndex = productInfo.options.extras.findIndex(extraName => extraName === extra);
 
+        // retrait de l'extra à retirer dans la liste
         const extras = [...productInfo.options.extras];
         extras.splice(extraIndex, 1);
 
         const extrasPrices = [...productInfo["prix des extras"]];
         extrasPrices.splice(extraIndex, 1);
 
+        // update du panier
         const newCart = [...cartContent];
         newCart.splice(productCartIndex, 1, { ...cartContent[productCartIndex], options: { ...cartContent[productCartIndex].options, extras: extras }, prix: cartContent[productCartIndex].prix - productInfo["prix des extras"][extraIndex].prix, "prix des extras": extrasPrices });
         setCartContent(newCart);
@@ -45,6 +48,7 @@ export default function CartItem({ productInfo, cartContent, setCartContent }) {
             <div className={style['cart-product-details']}>
                 <p className={style["product-name"]}>{productInfo.nom}</p>
 
+                {/*------- Affichage des options du produit -------*/}
                 <ul className={style['cart-product-details-options']}>
                     {Object.entries(productInfo.options).map(([key, value], i) => {
                         if (key !== 'extras') {

@@ -13,6 +13,7 @@ export default function Cart({ cartProducts, setCartContent }) {
     const [showCart, setShowCart] = useState(false);
     const [errors, setErrors] = useState({});
 
+    // changement de la visbilité du component Payment si formulaire valide
     const changeVisibility = (e) => {
         e.preventDefault();
 
@@ -40,6 +41,7 @@ export default function Cart({ cartProducts, setCartContent }) {
     return (
         <>
             <div onClick={() => setShowCart(true)} className={style["cart-container"]}>
+                {/*------ affichage du nombre de produits dans le panier sur la page menu ----*/}
                 <div className={style["quantity-container"]}>
                     {cartProducts.reduce((accumulator, currentValue) => accumulator + currentValue['quantité'], 0)}
                 </div>
@@ -48,6 +50,7 @@ export default function Cart({ cartProducts, setCartContent }) {
                 </div>
             </div>
 
+            {/*-----affichage de la modal--------*/}
             {showCart && (
                 <Modal setShowModal={setShowCart}>
                     {showPayment ? (
